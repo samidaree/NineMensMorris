@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="first_square_lines_length">100dp</dimen>
+    <dimen name="lines_thickeness">3dp</dimen>
+    <dimen name = "piece_size"> 9dp</dimen>
+    <dimen name = "touch_piece_size">23dp</dimen>
+    <dimen name = "second_square_lines_length">200dp</dimen>
+    <dimen name = "third_square_lines_length">300dp</dimen>
+</resources>
