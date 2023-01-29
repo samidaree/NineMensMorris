@@ -3,123 +3,122 @@ package com.sb.themillgame.model;
 import java.util.ArrayList;
 
 public class Graph {
+    final int nb = 24;
+    String[][]Matrix;
 
-    int nb = 24;
-    String[][]Matrice;
-
-    public Graph(String [][] matrice) {
-        this.Matrice = matrice;
+    public Graph(String [][] Matrix) {
+        this.Matrix = Matrix;
     }
 
     public Graph() {
-        Matrice= new String[24][24];
+        Matrix= new String[24][24];
         for (int i = 0; i < nb; i++) {
             for (int j = 0; j < nb; j++) {
-                String vide = new String("0");
-                Matrice[i][j] = vide;
+                String empty = "0";
+                Matrix[i][j] = empty;
             }
         }
     }
 
-    public void plateau() {
+    public void board() {
         //1
-        addArete(0,1);
-        addArete(0,7);
+        addEdge(0,1);
+        addEdge(0,7);
 
         //2
-        addArete(1,2);
-        addArete(1,9);
+        addEdge(1,2);
+        addEdge(1,9);
 
         //3
-        addArete(2,3);
+        addEdge(2,3);
 
         //4
-        addArete(3,11);
-        addArete(3,4);
+        addEdge(3,11);
+        addEdge(3,4);
 
         //5
-        addArete(4,5);
+        addEdge(4,5);
 
         //6
-        addArete(5,13);
-        addArete(5,6);
+        addEdge(5,13);
+        addEdge(5,6);
 
         //7
-        addArete(6,7);
+        addEdge(6,7);
 
         //8
-        addArete(7,15);
+        addEdge(7,15);
 
         //9
-        addArete(8,9);
-        addArete(8,15);
+        addEdge(8,9);
+        addEdge(8,15);
 
         //10
-        addArete(9,10);
-        addArete(9,17);
+        addEdge(9,10);
+        addEdge(9,17);
 
         //11
-        addArete(10,11);
+        addEdge(10,11);
 
         //12
 
-        addArete(11,19);
-        addArete(11,12);
+        addEdge(11,19);
+        addEdge(11,12);
 
         //13
-        addArete(12,13);
+        addEdge(12,13);
 
 
         //14
-        addArete(13,21);
-        addArete(13,14);
+        addEdge(13,21);
+        addEdge(13,14);
 
 
         //15
-        addArete(14,15);
+        addEdge(14,15);
 
 
         //16
-        addArete(15,23);
+        addEdge(15,23);
 
 
         //17
-        addArete(16,17);
-        addArete(16,23);
+        addEdge(16,17);
+        addEdge(16,23);
 
         //18
-        addArete(17,18);
+        addEdge(17,18);
 
         //19
-        addArete(18,19);
+        addEdge(18,19);
 
         //20
-        addArete(19,20);
+        addEdge(19,20);
 
         //21
-        addArete(20,21);
+        addEdge(20,21);
 
         //22
-        addArete(21,22);
+        addEdge(21,22);
 
         //23
-        addArete(22,23);
+        addEdge(22,23);
 
     }
 
     public void affiche() {
         for (int i = 0; i < nb; i++) {
             for (int j = 0; j < nb; j++) {
-                System.out.print(Matrice[i][j]+ " ");
+                System.out.print(Matrix[i][j]+ " ");
             }
             System.out.println();
         }
     }
 
-    public ArrayList<String> getVoisin(int id) {
+    public ArrayList<String> getNeighbor(int id) {
         ArrayList<String> res = new ArrayList<>();
         for(int i =0; i<nb;i++) {
-            if(hasArete(id,i)) {
+            if(hasEdge(id,i)) {
                 res.add(String.valueOf(i));
             }
         }
@@ -128,39 +127,39 @@ public class Graph {
 
     public void getAfficheDetaille() {
         for (int i = 0; i < nb; i++) {
-            System.out.println(i +" : " + nbArete(i) + " : " + getVoisin(i));
+            System.out.println(i +" : " + nbEdge(i) + " : " + getNeighbor(i));
         }
     }
 
-    //on ajoute une arete entre deux pions
-    public void addArete(int id1, int id2) {
+    //on ajoute une Edge entre deux pions
+    public void addEdge(int id1, int id2) {
 
-        //maxArete est le nombre d'arete maximal dont la position peut avoir
-        int maxAreteId1= getNbAreteMax(id1);
-        int maxAreteId2= getNbAreteMax(id2);
-        if(!hasArete(id1,id2)) {
+        //maxEdge est le nombre d'Edge maximal dont la position peut avoir
+        int maxEdgeId1= getNbEdgeMax(id1);
+        int maxEdgeId2= getNbEdgeMax(id2);
+        if(!hasEdge(id1,id2)) {
 
-            if(nbArete(id1) < maxAreteId1 && nbArete(id2)< maxAreteId2) {
-                Matrice[id1][id2] ="1";
-                Matrice[id2][id1] ="1";
+            if(nbEdge(id1) < maxEdgeId1 && nbEdge(id2)< maxEdgeId2) {
+                Matrix[id1][id2] ="1";
+                Matrix[id2][id1] ="1";
             }
         }
     }
 
-    //si deux positions ont une arete
-    public boolean hasArete(int id1, int id2) {
-        if(Matrice[id1][id2].equals("1") && Matrice[id2][id1].equals("1")) {
+    //si deux positions ont une Edge
+    public boolean hasEdge(int id1, int id2) {
+        if(Matrix[id1][id2].equals("1") && Matrix[id2][id1].equals("1")) {
             return true;
         }
         return false;
     }
 
-    //arete total d'un plateau
-    public int nbAreteTotal() {
+    //Edge total d'un plateau
+    public int nbEdgeTotal() {
         int res =0;
         for (int i = 0; i < nb; i++) {
             for (int j = 0; j < nb; j++) {
-                if(hasArete(i,j)) {
+                if(hasEdge(i,j)) {
                     res++;
                 }
             }
@@ -168,11 +167,11 @@ public class Graph {
         return res;
     }
 
-    //le nombre d'arete d'une position
-    public int nbArete(int id1) {
+    //le nombre d'Edge d'une position
+    public int nbEdge(int id1) {
         int res =0;
         for(int j =0; j< nb;j++) {
-            if(Matrice[id1][j].equals("1") || Matrice[j][id1].equals("1") ) {
+            if(Matrix[id1][j].equals("1") || Matrix[j][id1].equals("1") ) {
                 res++;
             }
         }
@@ -180,7 +179,7 @@ public class Graph {
     }
 
     //d'après le dessin du plateau
-    public int getNbAreteMax(int id) {
+    public int getNbEdgeMax(int id) {
         if((id == 9) || (id == 11) || (id == 13) || (id ==15) ){
             return 4;
         }else if(id%2 == 1) {
@@ -191,8 +190,38 @@ public class Graph {
     }
 
 
+    //retourne une liste de position dont l'id en parametre peut se replacer
+    public ArrayList<String> canMove(int id) {
+        ArrayList<String>res = new ArrayList<>();
+        ArrayList<String>list = getNeighbor(id);
+        for(int i =0; i< list.size();i++) {
+            int tmp = Integer.valueOf(list.get(i));
+            if((Matrix[tmp][tmp].equals("0"))) {
+                res.add(String.valueOf(tmp));
+            }
+        }
+        return res;
+    }
+
+    //on recupere canMove de id, on regarde si newID est dedant,
+    //si oui: on met à 0 la position id ET on met à 1 la posion newId
+    public boolean movePiece(int id, int newId) {
+        if(!canMove(id).contains(String.valueOf(newId))) {
+            return false;
+        }else {
+            Matrix[id][id]="0";
+            Matrix[newId][newId]="1";
+            return true;
+        }
+    }
+
+    public void setPiece(int id) {
+        Matrix[id][id]="1";
+    }
 
 }
+
+
 
 
 
