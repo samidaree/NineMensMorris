@@ -1,6 +1,7 @@
 package com.sb.themillgame.model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Graph {
     final int nb = 24;
@@ -217,6 +218,115 @@ public class Graph {
 
     public void setPiece(int id) {
         Matrix[id][id]="1";
+    }
+
+    //prend en parametre l'id de la derniere position du pion, retourne une liste
+    //de 4 id
+    public LinkedList<String> getListForAlignement(int lastPositionOfId) {
+        LinkedList<String>res = new LinkedList<>();
+        int tmp1;
+        int tmp2;
+        int tmp3;
+        int tmp4;
+        if(lastPositionOfId % 2 ==1) {
+            if(lastPositionOfId <= 7) {
+                tmp1 = (lastPositionOfId+8);
+                tmp2 = (lastPositionOfId+16);
+                tmp3 = (lastPositionOfId-1);
+                tmp4 = (lastPositionOfId+1)%8;
+                res.add(String.valueOf(tmp1));
+                res.add(String.valueOf(tmp2));
+                res.add(String.valueOf(tmp3));
+                res.add(String.valueOf(tmp4));
+            }
+
+            else if(lastPositionOfId <= 15) {
+                tmp1 = ((lastPositionOfId-8));
+                tmp2 = ((lastPositionOfId+8));
+                tmp3 = (lastPositionOfId-1);
+                tmp4 = ((lastPositionOfId+1)%8)+8;
+                res.add(String.valueOf(tmp1));
+                res.add(String.valueOf(tmp2));
+                res.add(String.valueOf(tmp3));
+                res.add(String.valueOf(tmp4));
+            }
+            else if(lastPositionOfId <= 23) {
+                tmp1 = (lastPositionOfId-16);
+                tmp2 = (lastPositionOfId-8);
+                tmp3 = (lastPositionOfId-1);
+                tmp4 = ((lastPositionOfId+1)%8)+16;
+                res.add(String.valueOf(tmp1));
+                res.add(String.valueOf(tmp2));
+                res.add(String.valueOf(tmp3));
+                res.add(String.valueOf(tmp4));
+            }
+        }else {
+            if(lastPositionOfId <= 7) {
+                tmp1 = Math.floorMod(lastPositionOfId-1,8);
+                tmp2 = Math.floorMod(lastPositionOfId-2,8);
+                tmp3 = (lastPositionOfId+1);
+                tmp4 = (lastPositionOfId+2)%8;
+                res.add(String.valueOf(tmp1));
+                res.add(String.valueOf(tmp2));
+                res.add(String.valueOf(tmp3));
+                res.add(String.valueOf(tmp4));
+            }
+
+            else if(lastPositionOfId <= 15) {
+                tmp1 = ((lastPositionOfId+1)%8)+8;
+                tmp2 = ((lastPositionOfId+2)%8)+8;
+                tmp3 = ((lastPositionOfId-1)%8)+8;
+                tmp4 = ((lastPositionOfId-2)%8)+8;
+                res.add(String.valueOf(tmp1));
+                res.add(String.valueOf(tmp2));
+                res.add(String.valueOf(tmp3));
+                res.add(String.valueOf(tmp4));
+            }
+            else if(lastPositionOfId <= 23) {
+                if(lastPositionOfId == 16) {
+                    tmp1 = (lastPositionOfId+1);
+                    tmp2 = (lastPositionOfId+2);
+                    tmp3 = ((lastPositionOfId+7));
+                    tmp4 = ((lastPositionOfId+6));
+                }else {
+                    tmp1 = ((lastPositionOfId+1)%16)+16;
+                    if(lastPositionOfId == 22) {
+                        tmp2 = ((lastPositionOfId+1)%16)+9;
+                    }else {
+                        tmp2 = ((lastPositionOfId+2)%16)+16;
+                    }
+                    tmp3 = ((lastPositionOfId-1)%16)+16;
+                    tmp4 = ((lastPositionOfId-2)%16)+16;
+
+                }
+                res.add(String.valueOf(tmp1));
+                res.add(String.valueOf(tmp2));
+                res.add(String.valueOf(tmp3));
+                res.add(String.valueOf(tmp4));
+            }
+
+        }
+        return res;
+    }
+
+    //test si l'id en paremetre possède un alignement
+    public Boolean isAlignement(int lastPosition){
+        LinkedList<String>list = getListForAlignement(lastPosition);
+
+        int nb1 = Integer.valueOf(list.get(0));
+        int nb2 = Integer.valueOf(list.get(1));
+        int nb3 = Integer.valueOf(list.get(2));
+        int nb4 = Integer.valueOf(list.get(3));
+
+
+        if(Matrix[nb1][nb1].equals("1") && Matrix[nb2][nb2].equals("1")) {
+            return true;
+        }else if(Matrix[nb3][nb3].equals("1") && Matrix[nb4][nb4].equals("1")) {
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
 }

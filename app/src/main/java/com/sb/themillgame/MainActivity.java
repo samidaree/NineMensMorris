@@ -17,9 +17,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
         binding.touchPiece1.setOnClickListener(view -> {
-            System.out.println("click");
             setPiece(view, binding.touchPiece1);
         });
+
         binding.touchPiece2.setOnClickListener(view -> setPiece(view, binding.touchPiece2));
         binding.touchPiece3.setOnClickListener(view -> setPiece(view, binding.touchPiece3));
         binding.touchPiece4.setOnClickListener(view->setPiece(view, binding.touchPiece4));
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setPiece(View view, Button b){
+
         b.setBackground(getDrawable(R.drawable.white_button));
     }
 }
