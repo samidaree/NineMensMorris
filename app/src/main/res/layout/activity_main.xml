@@ -208,98 +208,96 @@
             android:layout_height="310dp">
 
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece1"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
-                android:background="@drawable/round_button"
-                android:clickable="false">
+                android:src="@drawable/round_button"
+                android:contentDescription="TODO">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece2"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
 
                 android:layout_centerInParent="true"
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece3"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
 
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece4"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentBottom="true"
-
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece5"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_centerVertical="true"
-
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece6"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentBottom="true"
 
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece7"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
 
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece8"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
 
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
         </RelativeLayout>
 
@@ -310,42 +308,42 @@
             android:layout_height="213dp">
 
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece9"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece10"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
 
                 android:layout_centerInParent="true"
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece11"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
 
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece15"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
@@ -354,54 +352,54 @@
                 android:background="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece16"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_centerVertical="true"
 
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece14"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentBottom="true"
 
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece12"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
 
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece13"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
 
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
         </RelativeLayout>
 
@@ -412,64 +410,64 @@
             android:layout_height="111dp">
 
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece17"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
 
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece18"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="true"
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece19"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
 
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
-            <androidx.appcompat.widget.AppCompatButton
+            </ImageView>
+            <ImageView
                 android:id="@+id/piece20"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
 
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece21"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
 
-                android:background="@drawable/round_button"
+                android:src="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece22"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
@@ -478,8 +476,8 @@
                 android:background="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
-            <androidx.appcompat.widget.AppCompatButton
+            </ImageView>
+            <ImageView
                 android:id="@+id/piece23"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
@@ -487,10 +485,10 @@
 
                 android:background="@drawable/round_button"
                 android:clickable="false">
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
 
-            <androidx.appcompat.widget.AppCompatButton
+            <ImageView
                 android:id="@+id/piece24"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
@@ -499,7 +497,7 @@
                 android:background="@drawable/round_button"
                 android:clickable="false">
 
-            </androidx.appcompat.widget.AppCompatButton>
+            </ImageView>
 
         </RelativeLayout>
 
