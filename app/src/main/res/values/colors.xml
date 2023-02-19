@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="Yellow_200">#ebdbb2</color>
-    <color name="Orange_500">#F69e78</color>
-    <color name="Blue_700">#343e56</color>
+    <color name="Main_Color">#f7de7c</color>
+    <color name="Background_Color">#289943</color>
+    <color name="Softer_Background_Color">#058975</color>
+    <color name = "Third_Color">#503b49</color>
+    <color name = "Fourth_Color">#d80877</color>
 
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>

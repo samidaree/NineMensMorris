@@ -4,25 +4,37 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.databinding.DataBindingUtil;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.widget.Toast;
 
 import com.sb.themillgame.databinding.ActivityMainBinding;
 import com.sb.themillgame.model.Graph;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
-    private static int[] idArray = {R.id.touch_piece1, R.id.touch_piece2, R.id.touch_piece3, R.id.touch_piece4, R.id.touch_piece5, R.id.touch_piece6, R.id.touch_piece7, R.id.touch_piece8, R.id.touch_piece8, R.id.touch_piece9, R.id.touch_piece10, R.id.touch_piece11, R.id.touch_piece12, R.id.touch_piece13, R.id.touch_piece14, R.id.touch_piece15, R.id.touch_piece16, R.id.touch_piece17, R.id.touch_piece18, R.id.touch_piece19, R.id.touch_piece20, R.id.touch_piece21, R.id.touch_piece22, R.id.touch_piece23, R.id.touch_piece24};
-
+    private static int[] idArray = {R.id.touch_piece1, R.id.touch_piece2, R.id.touch_piece3, R.id.touch_piece4, R.id.touch_piece5, R.id.touch_piece6, R.id.touch_piece7, R.id.touch_piece8, R.id.touch_piece9, R.id.touch_piece10, R.id.touch_piece11, R.id.touch_piece12, R.id.touch_piece13, R.id.touch_piece14, R.id.touch_piece15, R.id.touch_piece16, R.id.touch_piece17, R.id.touch_piece18, R.id.touch_piece19, R.id.touch_piece20, R.id.touch_piece21, R.id.touch_piece22, R.id.touch_piece23, R.id.touch_piece24};
     private AppCompatButton[]intersections = new AppCompatButton[idArray.length];
 
     private static int playerTurn = 1 ;
 
     private Graph board = new Graph();
+
+    private static int firstPlayerOnBoardPieces = 0 ;
+    private static int secondPlayerOnBoardPieces = 0 ;
+
+    private static boolean selectedPiece = false;
+    private static int sourceIntersectionId ;
+    private static AppCompatButton sourceIntersectionButton;
+    private static int step = 1;
+
+    private int mill = 0;
     private ActivityMainBinding binding ;
+
+    @SuppressLint("SuspiciousIndentation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +52,27 @@ public class MainActivity extends AppCompatActivity {
             intersections[i] = findViewById(idArray[i]);
             final int selectedIntersection = i ;
             intersections[i].setOnClickListener(view -> {
-                setPiece((AppCompatButton) view, selectedIntersection);
+                if (step==1){
+                    if (mill!=playerTurn)
+                        setPiece((AppCompatButton) view, selectedIntersection);
+                    else
+                        removePiece((AppCompatButton) view, selectedIntersection);
+
+                }
+                if (step == 2){
+                    if (!selectedPiece && canSelect(selectedIntersection)){
+                        selectPiece((AppCompatButton) view, selectedIntersection);
+                    }
+                    else if(selectedPiece){
+                        if (movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection))
+                            selectedPiece = false;
+                        else {
+                            movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection);
+                        }
+
+                    }
+
+                }
             });
         }
 
@@ -149,20 +181,45 @@ public class MainActivity extends AppCompatActivity {
 
     private void setPiece(AppCompatButton b, int pieceNumber){
         if (isIntersectionSelectable(pieceNumber)){
+            if (firstPlayerOnBoardPieces==9 && secondPlayerOnBoardPieces ==9) {
+                Toast.makeText(this, "You must click on a piece to move it ! ", Toast.LENGTH_LONG).show();
+                step = 2;
+                return ;
+            }
             if (playerTurn == 1){
-                this.board.setMatrix(pieceNumber, pieceNumber, "1");
-                b.setBackground(getDrawable(R.drawable.white_piece));
-                playerTurn = 2 ;
-            }
+
+                    firstPlayerOnBoardPieces++;
+                    this.board.setMatrix(pieceNumber, pieceNumber, "1");
+                    b.setBackground(getDrawable(R.drawable.white_piece));
+                    isMill(pieceNumber);
+                    playerTurn = 2 ;
+                }
+
             else{
-                this.board.setMatrix(pieceNumber, pieceNumber, "2");
-                b.setBackground(getDrawable(R.drawable.black_piece));
-                playerTurn = 1 ;
+                    secondPlayerOnBoardPieces++;
+                    this.board.setMatrix(pieceNumber, pieceNumber, "2");
+                    b.setBackground(getDrawable(R.drawable.black_piece));
+                    isMill(pieceNumber);
+                    playerTurn = 1 ;
             }
+
+
         }
 
-        //b.setBackground(getDrawable(R.drawable.white_button));
     }
+
+    private boolean removePiece(AppCompatButton b, int pieceNumber){
+        if (this.board.getMatrix()[pieceNumber][pieceNumber].equals("0"))
+            return false ;
+        b.setBackground(getDrawable(R.drawable.transparent_round_button));
+        if (playerTurn==1)
+            firstPlayerOnBoardPieces -- ;
+        else if (playerTurn == 2)
+            secondPlayerOnBoardPieces -- ;
+        board.setMatrix(pieceNumber, pieceNumber, "0");
+        return true ;
+    }
+
 
     public boolean isIntersectionSelectable(int pieceID){
         boolean response = false;
@@ -183,6 +240,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public boolean canSelect(int id){
+        boolean response = true;
+        if (board.getMatrix()[id][id].equals(String.valueOf(playerTurn))==false){
+            response = false ;
+            if (sourceIntersectionButton==null)
+                Toast.makeText(this, "Select your piece !", Toast.LENGTH_LONG).show();
+        }
+
+        return response ;
+    }
+
 
     //retourne une liste de position dont l'id en parametre peut se replacer
     public ArrayList<String> canMove(int id) {
@@ -197,16 +265,51 @@ public class MainActivity extends AppCompatActivity {
         return res;
     }
 
+    public void selectPiece(AppCompatButton b, int id){
+        sourceIntersectionId = id;
+        sourceIntersectionButton = b;
+        if (playerTurn == 1)
+            sourceIntersectionButton.setBackground(getDrawable(R.drawable.white_piece_green_stroke));
+        else
+            sourceIntersectionButton.setBackground(getDrawable(R.drawable.black_piece_green_stroke));
+        selectedPiece = true;
+    }
+
+    public void unselectPiece(){
+        if (playerTurn == 1){
+            sourceIntersectionButton.setBackground(getDrawable(R.drawable.white_piece));
+            sourceIntersectionButton=null;
+            sourceIntersectionId= -1;
+        }
+        else{
+            sourceIntersectionButton.setBackground(getDrawable(R.drawable.black_piece));
+            sourceIntersectionButton=null;
+            sourceIntersectionId= -1;
+        }
+    }
     //on recupere canMove de id, on regarde si newID est dedant,
     //si oui: on met à 0 la position id ET on met à 1 la posion newId
-    public boolean movePiece(int id, int newId) {
-        if(!canMove(id).contains(String.valueOf(newId))) {
+    public boolean movePiece(AppCompatButton sourceButton, AppCompatButton destinationButton, int sourceId, int destinationId) {
+        if(!canMove(sourceId).contains(String.valueOf(destinationId))) {
+            if (canSelect(destinationId)){
+                unselectPiece();
+                selectPiece(destinationButton, destinationId);
+            }
+            else {
+                Toast.makeText(this, "Select an available position maximum 1 unit far away", Toast.LENGTH_LONG).show();
+            }
             return false;
-        }else {
-            board.setMatrix(id,id,"0");
-            board.setMatrix(newId, newId, "1");
-            return true;
+
+
         }
+        if (playerTurn==1)
+            sourceButton.setBackground(getDrawable(R.drawable.white_piece_green_stroke));
+        else
+            sourceButton.setBackground(getDrawable(R.drawable.black_piece_green_stroke));
+        removePiece(sourceButton, sourceId);
+        setPiece(destinationButton, destinationId);
+        return true;
+
     }
 
     //prend en parametre l'id de la derniere position du pion, retourne une liste
@@ -307,10 +410,16 @@ public class MainActivity extends AppCompatActivity {
         int nb3 = Integer.parseInt(list.get(2));
         int nb4 = Integer.parseInt(list.get(3));
 
+        System.out.println(nb1 + "\t" + nb2);
+        System.out.println(nb3 + "\t" + nb4);
 
-        if(board.getMatrix()[nb1][nb1].equals("1") && board.getMatrix()[nb2][nb2].equals("1")) {
+        if(board.getMatrix()[nb1][nb1].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb2][nb2].equals(String.valueOf(playerTurn))) {
+            System.out.println("true") ;
             return true;
-        }else return board.getMatrix()[nb3][nb3].equals("1") && board.getMatrix()[nb4][nb4].equals("1");
+        }else {
+            System.out.println(board.getMatrix()[nb3][nb3].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb4][nb4].equals(String.valueOf(playerTurn)));
+            return board.getMatrix()[nb3][nb3].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb4][nb4].equals(String.valueOf(playerTurn));
+        }
 
     }
 }

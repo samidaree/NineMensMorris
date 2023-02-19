@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/Blue_700"
+        android:background="@color/Softer_Background_Color"
         tools:context=".MainActivity">
 
 
@@ -16,7 +16,7 @@
             android:layout_width="@dimen/third_square_lines_length"
             android:layout_height="@dimen/third_square_lines_length"
             android:layout_centerInParent="true"
-            android:background="@color/Blue_700">
+            android:background="@color/Main_Color">
 
         </RelativeLayout>
 
@@ -26,7 +26,7 @@
             android:layout_height="@dimen/lines_thickeness"
             android:layout_below="@+id/square1"
             android:layout_centerHorizontal="true"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -36,7 +36,7 @@
             android:layout_height="@dimen/lines_thickeness"
             android:layout_above="@+id/square1"
             android:layout_centerHorizontal="true"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
 
         </RelativeLayout>
@@ -47,7 +47,7 @@
             android:layout_height="@dimen/third_square_lines_length"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/square1"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -57,7 +57,7 @@
             android:layout_height="@dimen/third_square_lines_length"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/square1"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -66,7 +66,7 @@
             android:layout_width="@dimen/second_square_lines_length"
             android:layout_height="@dimen/second_square_lines_length"
             android:layout_centerInParent="true"
-            android:background="@color/Blue_700">
+            android:background="@color/Main_Color">
 
         </RelativeLayout>
 
@@ -76,7 +76,7 @@
             android:layout_height="@dimen/lines_thickeness"
             android:layout_below="@+id/square2"
             android:layout_centerHorizontal="true"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -86,7 +86,7 @@
             android:layout_height="@dimen/lines_thickeness"
             android:layout_above="@+id/square2"
             android:layout_centerHorizontal="true"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
 
         </RelativeLayout>
@@ -97,7 +97,7 @@
             android:layout_height="@dimen/second_square_lines_length"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/square2"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -107,7 +107,7 @@
             android:layout_height="@dimen/second_square_lines_length"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/square2"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -116,7 +116,7 @@
             android:layout_width="@dimen/first_square_lines_length"
             android:layout_height="@dimen/first_square_lines_length"
             android:layout_centerInParent="true"
-            android:background="@color/Blue_700"></RelativeLayout>
+            android:background="@color/Main_Color"></RelativeLayout>
 
 
         <RelativeLayout
@@ -125,7 +125,7 @@
             android:layout_height="@dimen/first_square_lines_length"
             android:layout_above="@+id/square3"
             android:layout_centerHorizontal="true"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -135,7 +135,7 @@
             android:layout_height="@dimen/lines_thickeness"
             android:layout_above="@+id/square3"
             android:layout_centerHorizontal="true"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
 
         </RelativeLayout>
@@ -146,7 +146,7 @@
             android:layout_height="@dimen/first_square_lines_length"
             android:layout_below="@+id/square3"
             android:layout_centerHorizontal="true"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -156,7 +156,7 @@
             android:layout_height="@dimen/lines_thickeness"
             android:layout_below="@+id/square3"
             android:layout_centerHorizontal="true"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -166,7 +166,7 @@
             android:layout_height="@dimen/first_square_lines_length"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/square3"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -176,7 +176,7 @@
             android:layout_height="@dimen/lines_thickeness"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/square3"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -186,7 +186,7 @@
             android:layout_height="@dimen/first_square_lines_length"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/square3"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
         </RelativeLayout>
 
@@ -196,7 +196,7 @@
             android:layout_height="@dimen/lines_thickeness"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/square3"
-            android:background="@color/Orange_500">
+            android:background="@color/Fourth_Color">
 
 
         </RelativeLayout>
@@ -512,7 +512,7 @@
                 android:layout_width="@dimen/touch_piece_size"
                 android:layout_height="@dimen/touch_piece_size"
                 android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                 />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/touch_piece18"
