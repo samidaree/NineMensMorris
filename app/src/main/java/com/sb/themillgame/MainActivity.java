@@ -1,27 +1,25 @@
 package com.sb.themillgame;
 
+import android.os.Bundle;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.databinding.DataBindingUtil;
-
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.widget.Toast;
 
 import com.sb.themillgame.databinding.ActivityMainBinding;
 import com.sb.themillgame.model.Graph;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
-    private static int[] idArray = {R.id.touch_piece1, R.id.touch_piece2, R.id.touch_piece3, R.id.touch_piece4, R.id.touch_piece5, R.id.touch_piece6, R.id.touch_piece7, R.id.touch_piece8, R.id.touch_piece9, R.id.touch_piece10, R.id.touch_piece11, R.id.touch_piece12, R.id.touch_piece13, R.id.touch_piece14, R.id.touch_piece15, R.id.touch_piece16, R.id.touch_piece17, R.id.touch_piece18, R.id.touch_piece19, R.id.touch_piece20, R.id.touch_piece21, R.id.touch_piece22, R.id.touch_piece23, R.id.touch_piece24};
-    private AppCompatButton[] intersections = new AppCompatButton[idArray.length];
+    private static final int[] idArray = {R.id.touch_piece1, R.id.touch_piece2, R.id.touch_piece3, R.id.touch_piece4, R.id.touch_piece5, R.id.touch_piece6, R.id.touch_piece7, R.id.touch_piece8, R.id.touch_piece9, R.id.touch_piece10, R.id.touch_piece11, R.id.touch_piece12, R.id.touch_piece13, R.id.touch_piece14, R.id.touch_piece15, R.id.touch_piece16, R.id.touch_piece17, R.id.touch_piece18, R.id.touch_piece19, R.id.touch_piece20, R.id.touch_piece21, R.id.touch_piece22, R.id.touch_piece23, R.id.touch_piece24};
+    private final AppCompatButton[] intersections = new AppCompatButton[idArray.length];
 
     private static int playerTurn = 1;
 
-    private Graph board = new Graph();
+    private final Graph board = new Graph();
 
     private static int firstPlayerPiecesSet = 0 ;
     private static int secondPlayerPiecesSet = 0 ;
@@ -37,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private int mill = 0;
     private ActivityMainBinding binding;
 
-    @SuppressLint("SuspiciousIndentation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,20 +70,31 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 if (step == 2) {
-                    if (!selectedPiece && canSelect(selectedIntersection)) {
-                        selectPiece((AppCompatButton) view, selectedIntersection);
-                    } else if (selectedPiece) {
-                        if (movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection))
-                            selectedPiece = false;
-                        // If player did not select a correct position, make him select again
-                        else {
-                            if (!canSelect(selectedIntersection))
-                                Toast.makeText(this, "Select an available position maximum 1 unit far away", Toast.LENGTH_LONG).show();
-
-                            movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection);
+                    if (mill == playerTurn){
+                        if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
+                            removePiece((AppCompatButton) view, selectedIntersection);
+                            mill = 0 ;
+                            changePlayerTurn();
                         }
 
                     }
+                    else {
+                        if (!selectedPiece && canSelect(selectedIntersection)) {
+                            selectPiece((AppCompatButton) view, selectedIntersection);
+                        } else if (selectedPiece) {
+                            if (movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection))
+                                selectedPiece = false;
+                                // If player did not select a correct position, make him select again
+                            else {
+                                if (!canSelect(selectedIntersection))
+                                    Toast.makeText(this, "Select an available position maximum 1 unit far away", Toast.LENGTH_LONG).show();
+
+                                movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection);
+                            }
+
+                        }
+                    }
+
 
                 }
             });
@@ -182,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public int changePlayerTurn (){
-        int currentTurn = playerTurn ;
+        int currentTurn;
         if (playerTurn == 1){
             playerTurn = 2;
             currentTurn = 2;
@@ -258,10 +266,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public boolean isIntersectionSelectable(int pieceID) {
-        boolean response = false;
-        if (board.getMatrix()[pieceID][pieceID].equals("0")) {
-            response = true;
-        }
+        boolean response = board.getMatrix()[pieceID][pieceID].equals("0");
         return response;
     }
 
@@ -278,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean canSelect(int id) {
         boolean response = true;
-        if (board.getMatrix()[id][id].equals(String.valueOf(playerTurn)) == false) {
+        if (!board.getMatrix()[id][id].equals(String.valueOf(playerTurn))) {
             response = false;
             if (sourceIntersectionButton == null)
                 Toast.makeText(this, "Select your piece !", Toast.LENGTH_LONG).show();
@@ -293,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> res = new ArrayList<>();
         ArrayList<String> list = board.getNeighbor(id);
         for (int i = 0; i < list.size(); i++) {
-            int tmp = Integer.valueOf(list.get(i));
+            int tmp = Integer.parseInt(list.get(i));
             if ((board.getMatrix()[tmp][tmp].equals("0"))) {
                 res.add(String.valueOf(tmp));
             }
@@ -314,13 +319,11 @@ public class MainActivity extends AppCompatActivity {
     public void unselectPiece() {
         if (playerTurn == 1) {
             sourceIntersectionButton.setBackground(getDrawable(R.drawable.white_piece));
-            sourceIntersectionButton = null;
-            sourceIntersectionId = -1;
         } else {
             sourceIntersectionButton.setBackground(getDrawable(R.drawable.black_piece));
-            sourceIntersectionButton = null;
-            sourceIntersectionId = -1;
         }
+        sourceIntersectionButton = null;
+        sourceIntersectionId = -1;
     }
 
     //on recupere canMove de id, on regarde si newID est dedant,
