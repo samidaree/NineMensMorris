@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
 
     private Graph board = new Graph();
 
+    private static int firstPlayerPiecesSet = 0 ;
+    private static int secondPlayerPiecesSet = 0 ;
+
     private static int firstPlayerOnBoardPieces = 0;
     private static int secondPlayerOnBoardPieces = 0;
 
@@ -52,10 +55,15 @@ public class MainActivity extends AppCompatActivity {
             intersections[i] = findViewById(idArray[i]);
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
+                System.out.println(playerTurn);
                 if (step == 1) {
-                    if (mill == getOtherPlayerTurn()){
-                        removePiece((AppCompatButton) view, selectedIntersection);
-                        mill = 0 ;
+                    if (mill == playerTurn){
+                        if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
+                            removePiece((AppCompatButton) view, selectedIntersection);
+                            mill = 0 ;
+                            changePlayerTurn();
+                        }
+
                     }
 
                     else{
@@ -70,7 +78,11 @@ public class MainActivity extends AppCompatActivity {
                     } else if (selectedPiece) {
                         if (movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection))
                             selectedPiece = false;
+                        // If player did not select a correct position, make him select again
                         else {
+                            if (!canSelect(selectedIntersection))
+                                Toast.makeText(this, "Select an available position maximum 1 unit far away", Toast.LENGTH_LONG).show();
+
                             movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection);
                         }
 
@@ -169,9 +181,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public int getOtherPlayerTurn (){
+    public int changePlayerTurn (){
+        int currentTurn = playerTurn ;
+        if (playerTurn == 1){
+            playerTurn = 2;
+            currentTurn = 2;
+        }
+        else {
+            playerTurn = 1;
+            currentTurn = 1 ;
+        }
+        return currentTurn;
+    }
+
+
+    public int getOtherPlayerTurn(){
         if (playerTurn == 1)
-            return 2;
+            return 2 ;
         else
             return 1;
     }
@@ -189,29 +215,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setPiece(AppCompatButton b, int pieceNumber) {
+        if (firstPlayerPiecesSet == 9 && secondPlayerPiecesSet == 9 && step==1) {
+            Toast.makeText(this, "You must click on a piece to move it ! ", Toast.LENGTH_LONG).show();
+            step = 2;
+            return;
+        }
         if (isIntersectionSelectable(pieceNumber)) {
-            if (firstPlayerOnBoardPieces == 9 && secondPlayerOnBoardPieces == 9) {
-                Toast.makeText(this, "You must click on a piece to move it ! ", Toast.LENGTH_LONG).show();
-                step = 2;
-                return;
-            }
-            if (playerTurn == 1) {
 
+            if (playerTurn == 1) {
+                firstPlayerPiecesSet++ ;
                 firstPlayerOnBoardPieces++;
                 this.board.setMatrix(pieceNumber, pieceNumber, "1");
                 b.setBackground(getDrawable(R.drawable.white_piece));
-                isMill(pieceNumber);
-                playerTurn = 2;
+                if (!isMill(pieceNumber))
+                    playerTurn = 2;
             } else {
+                secondPlayerPiecesSet++ ;
                 secondPlayerOnBoardPieces++;
                 this.board.setMatrix(pieceNumber, pieceNumber, "2");
                 b.setBackground(getDrawable(R.drawable.black_piece));
-                isMill(pieceNumber);
-                playerTurn = 1;
+                if (!isMill(pieceNumber))
+                    playerTurn = 1;
             }
 
 
         }
+
 
     }
 
@@ -301,8 +330,6 @@ public class MainActivity extends AppCompatActivity {
             if (canSelect(destinationId)) {
                 unselectPiece();
                 selectPiece(destinationButton, destinationId);
-            } else {
-                Toast.makeText(this, "Select an available position maximum 1 unit far away", Toast.LENGTH_LONG).show();
             }
             return false;
 
@@ -412,17 +439,14 @@ public class MainActivity extends AppCompatActivity {
         int nb3 = Integer.parseInt(list.get(2));
         int nb4 = Integer.parseInt(list.get(3));
 
-        System.out.println(nb1 + "\t" + nb2);
-        System.out.println(nb3 + "\t" + nb4);
+
 
         if (board.getMatrix()[nb1][nb1].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb2][nb2].equals(String.valueOf(playerTurn))) {
-            System.out.println("true");
             mill = playerTurn;
             response = true;
             return response;
         } else if (board.getMatrix()[nb3][nb3].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb4][nb4].equals(String.valueOf(playerTurn))) {
             mill = playerTurn;
-            System.out.println("true");
             response = true;
         }
 
