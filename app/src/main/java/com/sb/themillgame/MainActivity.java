@@ -17,22 +17,22 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainActivity extends AppCompatActivity {
     private static int[] idArray = {R.id.touch_piece1, R.id.touch_piece2, R.id.touch_piece3, R.id.touch_piece4, R.id.touch_piece5, R.id.touch_piece6, R.id.touch_piece7, R.id.touch_piece8, R.id.touch_piece9, R.id.touch_piece10, R.id.touch_piece11, R.id.touch_piece12, R.id.touch_piece13, R.id.touch_piece14, R.id.touch_piece15, R.id.touch_piece16, R.id.touch_piece17, R.id.touch_piece18, R.id.touch_piece19, R.id.touch_piece20, R.id.touch_piece21, R.id.touch_piece22, R.id.touch_piece23, R.id.touch_piece24};
-    private AppCompatButton[]intersections = new AppCompatButton[idArray.length];
+    private AppCompatButton[] intersections = new AppCompatButton[idArray.length];
 
-    private static int playerTurn = 1 ;
+    private static int playerTurn = 1;
 
     private Graph board = new Graph();
 
-    private static int firstPlayerOnBoardPieces = 0 ;
-    private static int secondPlayerOnBoardPieces = 0 ;
+    private static int firstPlayerOnBoardPieces = 0;
+    private static int secondPlayerOnBoardPieces = 0;
 
     private static boolean selectedPiece = false;
-    private static int sourceIntersectionId ;
+    private static int sourceIntersectionId;
     private static AppCompatButton sourceIntersectionButton;
     private static int step = 1;
 
     private int mill = 0;
-    private ActivityMainBinding binding ;
+    private ActivityMainBinding binding;
 
     @SuppressLint("SuspiciousIndentation")
     @Override
@@ -48,22 +48,26 @@ public class MainActivity extends AppCompatActivity {
         // Une classe abstraite IA
         // 3 sous classes de IA pour chaque niveau
         // (1 classe joueur ou piece) à voir
-        for (int i = 0 ; i<intersections.length; i++){
+        for (int i = 0; i < intersections.length; i++) {
             intersections[i] = findViewById(idArray[i]);
-            final int selectedIntersection = i ;
+            final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
-                if (step==1){
-                    if (mill!=playerTurn)
-                        setPiece((AppCompatButton) view, selectedIntersection);
-                    else
+                if (step == 1) {
+                    if (mill == getOtherPlayerTurn()){
                         removePiece((AppCompatButton) view, selectedIntersection);
+                        mill = 0 ;
+                    }
+
+                    else{
+                        setPiece((AppCompatButton) view, selectedIntersection);
+
+                    }
 
                 }
-                if (step == 2){
-                    if (!selectedPiece && canSelect(selectedIntersection)){
+                if (step == 2) {
+                    if (!selectedPiece && canSelect(selectedIntersection)) {
                         selectPiece((AppCompatButton) view, selectedIntersection);
-                    }
-                    else if(selectedPiece){
+                    } else if (selectedPiece) {
                         if (movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection))
                             selectedPiece = false;
                         else {
@@ -77,130 +81,133 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
-
     }
 
     public void setBoard() {
         //1
-        addIntersection(0,1);
-        addIntersection(0,7);
+        addIntersection(0, 1);
+        addIntersection(0, 7);
 
         //2
-        addIntersection(1,2);
-        addIntersection(1,9);
+        addIntersection(1, 2);
+        addIntersection(1, 9);
 
         //3
-        addIntersection(2,3);
+        addIntersection(2, 3);
 
         //4
-        addIntersection(3,11);
-        addIntersection(3,4);
+        addIntersection(3, 11);
+        addIntersection(3, 4);
 
         //5
-        addIntersection(4,5);
+        addIntersection(4, 5);
 
         //6
-        addIntersection(5,13);
-        addIntersection(5,6);
+        addIntersection(5, 13);
+        addIntersection(5, 6);
 
         //7
-        addIntersection(6,7);
+        addIntersection(6, 7);
 
         //8
-        addIntersection(7,15);
+        addIntersection(7, 15);
 
         //9
-        addIntersection(8,9);
-        addIntersection(8,15);
+        addIntersection(8, 9);
+        addIntersection(8, 15);
 
         //10
-        addIntersection(9,10);
-        addIntersection(9,17);
+        addIntersection(9, 10);
+        addIntersection(9, 17);
 
         //11
-        addIntersection(10,11);
+        addIntersection(10, 11);
 
         //12
 
-        addIntersection(11,19);
-        addIntersection(11,12);
+        addIntersection(11, 19);
+        addIntersection(11, 12);
 
         //13
-        addIntersection(12,13);
+        addIntersection(12, 13);
 
 
         //14
-        addIntersection(13,21);
-        addIntersection(13,14);
+        addIntersection(13, 21);
+        addIntersection(13, 14);
 
 
         //15
-        addIntersection(14,15);
+        addIntersection(14, 15);
 
 
         //16
-        addIntersection(15,23);
+        addIntersection(15, 23);
 
 
         //17
-        addIntersection(16,17);
-        addIntersection(16,23);
+        addIntersection(16, 17);
+        addIntersection(16, 23);
 
         //18
-        addIntersection(17,18);
+        addIntersection(17, 18);
 
         //19
-        addIntersection(18,19);
+        addIntersection(18, 19);
 
         //20
-        addIntersection(19,20);
+        addIntersection(19, 20);
 
         //21
-        addIntersection(20,21);
+        addIntersection(20, 21);
 
         //22
-        addIntersection(21,22);
+        addIntersection(21, 22);
 
         //23
-        addIntersection(22,23);
+        addIntersection(22, 23);
 
+    }
+
+    public int getOtherPlayerTurn (){
+        if (playerTurn == 1)
+            return 2;
+        else
+            return 1;
     }
     public void addIntersection(int id1, int id2) {
 
         //maxEdge est le nombre d'Edge maximal que la position peut avoir
-        int maxEdgeId1= getNbEdgeMax(id1);
-        int maxEdgeId2= getNbEdgeMax(id2);
-        if(!(board.hasEdge(id1,id2))) {
+        int maxEdgeId1 = getNbEdgeMax(id1);
+        int maxEdgeId2 = getNbEdgeMax(id2);
+        if (!(board.hasEdge(id1, id2))) {
 
-            if(board.edgeNumber(id1) < maxEdgeId1 && board.edgeNumber(id2)< maxEdgeId2) {
+            if (board.edgeNumber(id1) < maxEdgeId1 && board.edgeNumber(id2) < maxEdgeId2) {
                 board.addEdge(id1, id2, "1");
             }
         }
     }
 
-    private void setPiece(AppCompatButton b, int pieceNumber){
-        if (isIntersectionSelectable(pieceNumber)){
-            if (firstPlayerOnBoardPieces==9 && secondPlayerOnBoardPieces ==9) {
+    private void setPiece(AppCompatButton b, int pieceNumber) {
+        if (isIntersectionSelectable(pieceNumber)) {
+            if (firstPlayerOnBoardPieces == 9 && secondPlayerOnBoardPieces == 9) {
                 Toast.makeText(this, "You must click on a piece to move it ! ", Toast.LENGTH_LONG).show();
                 step = 2;
-                return ;
+                return;
             }
-            if (playerTurn == 1){
+            if (playerTurn == 1) {
 
-                    firstPlayerOnBoardPieces++;
-                    this.board.setMatrix(pieceNumber, pieceNumber, "1");
-                    b.setBackground(getDrawable(R.drawable.white_piece));
-                    isMill(pieceNumber);
-                    playerTurn = 2 ;
-                }
-
-            else{
-                    secondPlayerOnBoardPieces++;
-                    this.board.setMatrix(pieceNumber, pieceNumber, "2");
-                    b.setBackground(getDrawable(R.drawable.black_piece));
-                    isMill(pieceNumber);
-                    playerTurn = 1 ;
+                firstPlayerOnBoardPieces++;
+                this.board.setMatrix(pieceNumber, pieceNumber, "1");
+                b.setBackground(getDrawable(R.drawable.white_piece));
+                isMill(pieceNumber);
+                playerTurn = 2;
+            } else {
+                secondPlayerOnBoardPieces++;
+                this.board.setMatrix(pieceNumber, pieceNumber, "2");
+                b.setBackground(getDrawable(R.drawable.black_piece));
+                isMill(pieceNumber);
+                playerTurn = 1;
             }
 
 
@@ -208,64 +215,64 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private boolean removePiece(AppCompatButton b, int pieceNumber){
+    private boolean removePiece(AppCompatButton b, int pieceNumber) {
         if (this.board.getMatrix()[pieceNumber][pieceNumber].equals("0"))
-            return false ;
+            return false;
         b.setBackground(getDrawable(R.drawable.transparent_round_button));
-        if (playerTurn==1)
-            firstPlayerOnBoardPieces -- ;
+        if (playerTurn == 1)
+            firstPlayerOnBoardPieces--;
         else if (playerTurn == 2)
-            secondPlayerOnBoardPieces -- ;
+            secondPlayerOnBoardPieces--;
         board.setMatrix(pieceNumber, pieceNumber, "0");
-        return true ;
+        return true;
     }
 
 
-    public boolean isIntersectionSelectable(int pieceID){
+    public boolean isIntersectionSelectable(int pieceID) {
         boolean response = false;
-        if (board.getMatrix()[pieceID][pieceID].equals("0")){
-            response = true ;
+        if (board.getMatrix()[pieceID][pieceID].equals("0")) {
+            response = true;
         }
-        return response ;
+        return response;
     }
 
     //d'après le dessin du plateau
     public int getNbEdgeMax(int id) {
-        if((id == 9) || (id == 11) || (id == 13) || (id ==15) ){
+        if ((id == 9) || (id == 11) || (id == 13) || (id == 15)) {
             return 4;
-        }else if(id%2 == 1) {
+        } else if (id % 2 == 1) {
             return 3;
-        }else {
+        } else {
             return 2;
         }
     }
 
-    public boolean canSelect(int id){
+    public boolean canSelect(int id) {
         boolean response = true;
-        if (board.getMatrix()[id][id].equals(String.valueOf(playerTurn))==false){
-            response = false ;
-            if (sourceIntersectionButton==null)
+        if (board.getMatrix()[id][id].equals(String.valueOf(playerTurn)) == false) {
+            response = false;
+            if (sourceIntersectionButton == null)
                 Toast.makeText(this, "Select your piece !", Toast.LENGTH_LONG).show();
         }
 
-        return response ;
+        return response;
     }
 
 
     //retourne une liste de position dont l'id en parametre peut se replacer
     public ArrayList<String> canMove(int id) {
-        ArrayList<String>res = new ArrayList<>();
-        ArrayList<String>list = board.getNeighbor(id);
-        for(int i =0; i< list.size();i++) {
+        ArrayList<String> res = new ArrayList<>();
+        ArrayList<String> list = board.getNeighbor(id);
+        for (int i = 0; i < list.size(); i++) {
             int tmp = Integer.valueOf(list.get(i));
-            if((board.getMatrix()[tmp][tmp].equals("0"))) {
+            if ((board.getMatrix()[tmp][tmp].equals("0"))) {
                 res.add(String.valueOf(tmp));
             }
         }
         return res;
     }
 
-    public void selectPiece(AppCompatButton b, int id){
+    public void selectPiece(AppCompatButton b, int id) {
         sourceIntersectionId = id;
         sourceIntersectionButton = b;
         if (playerTurn == 1)
@@ -275,34 +282,33 @@ public class MainActivity extends AppCompatActivity {
         selectedPiece = true;
     }
 
-    public void unselectPiece(){
-        if (playerTurn == 1){
+    public void unselectPiece() {
+        if (playerTurn == 1) {
             sourceIntersectionButton.setBackground(getDrawable(R.drawable.white_piece));
-            sourceIntersectionButton=null;
-            sourceIntersectionId= -1;
-        }
-        else{
+            sourceIntersectionButton = null;
+            sourceIntersectionId = -1;
+        } else {
             sourceIntersectionButton.setBackground(getDrawable(R.drawable.black_piece));
-            sourceIntersectionButton=null;
-            sourceIntersectionId= -1;
+            sourceIntersectionButton = null;
+            sourceIntersectionId = -1;
         }
     }
+
     //on recupere canMove de id, on regarde si newID est dedant,
     //si oui: on met à 0 la position id ET on met à 1 la posion newId
     public boolean movePiece(AppCompatButton sourceButton, AppCompatButton destinationButton, int sourceId, int destinationId) {
-        if(!canMove(sourceId).contains(String.valueOf(destinationId))) {
-            if (canSelect(destinationId)){
+        if (!canMove(sourceId).contains(String.valueOf(destinationId))) {
+            if (canSelect(destinationId)) {
                 unselectPiece();
                 selectPiece(destinationButton, destinationId);
-            }
-            else {
+            } else {
                 Toast.makeText(this, "Select an available position maximum 1 unit far away", Toast.LENGTH_LONG).show();
             }
             return false;
 
 
         }
-        if (playerTurn==1)
+        if (playerTurn == 1)
             sourceButton.setBackground(getDrawable(R.drawable.white_piece_green_stroke));
         else
             sourceButton.setBackground(getDrawable(R.drawable.black_piece_green_stroke));
@@ -315,80 +321,74 @@ public class MainActivity extends AppCompatActivity {
     //prend en parametre l'id de la derniere position du pion, retourne une liste
     //de 4 id
     public LinkedList<String> getMillCombinations(int lastPositionOfId) {
-        LinkedList<String>res = new LinkedList<>();
+        LinkedList<String> res = new LinkedList<>();
         int tmp1;
         int tmp2;
         int tmp3;
         int tmp4;
-        if(lastPositionOfId % 2 ==1) {
-            if(lastPositionOfId <= 7) {
-                tmp1 = (lastPositionOfId+8);
-                tmp2 = (lastPositionOfId+16);
-                tmp3 = (lastPositionOfId-1);
-                tmp4 = (lastPositionOfId+1)%8;
+        if (lastPositionOfId % 2 == 1) {
+            if (lastPositionOfId <= 7) {
+                tmp1 = (lastPositionOfId + 8);
+                tmp2 = (lastPositionOfId + 16);
+                tmp3 = (lastPositionOfId - 1);
+                tmp4 = (lastPositionOfId + 1) % 8;
+                res.add(String.valueOf(tmp1));
+                res.add(String.valueOf(tmp2));
+                res.add(String.valueOf(tmp3));
+                res.add(String.valueOf(tmp4));
+            } else if (lastPositionOfId <= 15) {
+                tmp1 = ((lastPositionOfId - 8));
+                tmp2 = ((lastPositionOfId + 8));
+                tmp3 = (lastPositionOfId - 1);
+                tmp4 = ((lastPositionOfId + 1) % 8) + 8;
+                res.add(String.valueOf(tmp1));
+                res.add(String.valueOf(tmp2));
+                res.add(String.valueOf(tmp3));
+                res.add(String.valueOf(tmp4));
+            } else if (lastPositionOfId <= 23) {
+                tmp1 = (lastPositionOfId - 16);
+                tmp2 = (lastPositionOfId - 8);
+                tmp3 = (lastPositionOfId - 1);
+                tmp4 = ((lastPositionOfId + 1) % 8) + 16;
                 res.add(String.valueOf(tmp1));
                 res.add(String.valueOf(tmp2));
                 res.add(String.valueOf(tmp3));
                 res.add(String.valueOf(tmp4));
             }
-
-            else if(lastPositionOfId <= 15) {
-                tmp1 = ((lastPositionOfId-8));
-                tmp2 = ((lastPositionOfId+8));
-                tmp3 = (lastPositionOfId-1);
-                tmp4 = ((lastPositionOfId+1)%8)+8;
+        } else {
+            if (lastPositionOfId <= 7) {
+                tmp1 = Math.floorMod(lastPositionOfId - 1, 8);
+                tmp2 = Math.floorMod(lastPositionOfId - 2, 8);
+                tmp3 = (lastPositionOfId + 1);
+                tmp4 = (lastPositionOfId + 2) % 8;
                 res.add(String.valueOf(tmp1));
                 res.add(String.valueOf(tmp2));
                 res.add(String.valueOf(tmp3));
                 res.add(String.valueOf(tmp4));
-            }
-            else if(lastPositionOfId <= 23) {
-                tmp1 = (lastPositionOfId-16);
-                tmp2 = (lastPositionOfId-8);
-                tmp3 = (lastPositionOfId-1);
-                tmp4 = ((lastPositionOfId+1)%8)+16;
+            } else if (lastPositionOfId <= 15) {
+                tmp1 = ((lastPositionOfId + 1) % 8) + 8;
+                tmp2 = ((lastPositionOfId + 2) % 8) + 8;
+                tmp3 = ((lastPositionOfId - 1) % 8) + 8;
+                tmp4 = ((lastPositionOfId - 2) % 8) + 8;
                 res.add(String.valueOf(tmp1));
                 res.add(String.valueOf(tmp2));
                 res.add(String.valueOf(tmp3));
                 res.add(String.valueOf(tmp4));
-            }
-        }else {
-            if(lastPositionOfId <= 7) {
-                tmp1 = Math.floorMod(lastPositionOfId-1,8);
-                tmp2 = Math.floorMod(lastPositionOfId-2,8);
-                tmp3 = (lastPositionOfId+1);
-                tmp4 = (lastPositionOfId+2)%8;
-                res.add(String.valueOf(tmp1));
-                res.add(String.valueOf(tmp2));
-                res.add(String.valueOf(tmp3));
-                res.add(String.valueOf(tmp4));
-            }
-
-            else if(lastPositionOfId <= 15) {
-                tmp1 = ((lastPositionOfId+1)%8)+8;
-                tmp2 = ((lastPositionOfId+2)%8)+8;
-                tmp3 = ((lastPositionOfId-1)%8)+8;
-                tmp4 = ((lastPositionOfId-2)%8)+8;
-                res.add(String.valueOf(tmp1));
-                res.add(String.valueOf(tmp2));
-                res.add(String.valueOf(tmp3));
-                res.add(String.valueOf(tmp4));
-            }
-            else if(lastPositionOfId <= 23) {
-                if(lastPositionOfId == 16) {
-                    tmp1 = (lastPositionOfId+1);
-                    tmp2 = (lastPositionOfId+2);
-                    tmp3 = ((lastPositionOfId+7));
-                    tmp4 = ((lastPositionOfId+6));
-                }else {
-                    tmp1 = ((lastPositionOfId+1)%16)+16;
-                    if(lastPositionOfId == 22) {
-                        tmp2 = ((lastPositionOfId+1)%16)+9;
-                    }else {
-                        tmp2 = ((lastPositionOfId+2)%16)+16;
+            } else if (lastPositionOfId <= 23) {
+                if (lastPositionOfId == 16) {
+                    tmp1 = (lastPositionOfId + 1);
+                    tmp2 = (lastPositionOfId + 2);
+                    tmp3 = ((lastPositionOfId + 7));
+                    tmp4 = ((lastPositionOfId + 6));
+                } else {
+                    tmp1 = ((lastPositionOfId + 1) % 16) + 16;
+                    if (lastPositionOfId == 22) {
+                        tmp2 = ((lastPositionOfId + 1) % 16) + 9;
+                    } else {
+                        tmp2 = ((lastPositionOfId + 2) % 16) + 16;
                     }
-                    tmp3 = ((lastPositionOfId-1)%16)+16;
-                    tmp4 = ((lastPositionOfId-2)%16)+16;
+                    tmp3 = ((lastPositionOfId - 1) % 16) + 16;
+                    tmp4 = ((lastPositionOfId - 2) % 16) + 16;
 
                 }
                 res.add(String.valueOf(tmp1));
@@ -402,8 +402,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //test si l'id en paremetre possède un alignement
-    public Boolean isMill(int lastPosition){
-        LinkedList<String>list = getMillCombinations(lastPosition);
+    public Boolean isMill(int lastPosition) {
+
+        boolean response = false;
+        LinkedList<String> list = getMillCombinations(lastPosition);
 
         int nb1 = Integer.parseInt(list.get(0));
         int nb2 = Integer.parseInt(list.get(1));
@@ -413,13 +415,17 @@ public class MainActivity extends AppCompatActivity {
         System.out.println(nb1 + "\t" + nb2);
         System.out.println(nb3 + "\t" + nb4);
 
-        if(board.getMatrix()[nb1][nb1].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb2][nb2].equals(String.valueOf(playerTurn))) {
-            System.out.println("true") ;
-            return true;
-        }else {
-            System.out.println(board.getMatrix()[nb3][nb3].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb4][nb4].equals(String.valueOf(playerTurn)));
-            return board.getMatrix()[nb3][nb3].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb4][nb4].equals(String.valueOf(playerTurn));
+        if (board.getMatrix()[nb1][nb1].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb2][nb2].equals(String.valueOf(playerTurn))) {
+            System.out.println("true");
+            mill = playerTurn;
+            response = true;
+            return response;
+        } else if (board.getMatrix()[nb3][nb3].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb4][nb4].equals(String.valueOf(playerTurn))) {
+            mill = playerTurn;
+            System.out.println("true");
+            response = true;
         }
 
+        return response;
     }
 }
