@@ -468,10 +468,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public int hasThreePieces(){
-        if (firstPlayerOnBoardPieces==3)
+        if (firstPlayerOnBoardPieces==3){
+            step = 3;
             return 1;
-        else if (secondPlayerOnBoardPieces==3)
-            return 2 ;
+        }
+        else if (secondPlayerOnBoardPieces==3){
+            step = 3;
+            return 2;
+        }
         else return 0 ;
     }
 }
