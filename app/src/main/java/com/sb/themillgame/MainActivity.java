@@ -293,6 +293,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     //retourne une liste de position dont l'id en parametre peut se replacer
     public ArrayList<String> canMove(int id) {
         ArrayList<String> res = new ArrayList<>();
@@ -306,6 +307,16 @@ public class MainActivity extends AppCompatActivity {
         return res;
     }
 
+    public ArrayList<String> canMoveStep3(int id) {
+        ArrayList<String> res = new ArrayList<>();
+        for (int i = 0; i<board.getMatrix().length; i++){
+            if (board.getMatrix()[i][i].equals("0"))
+                res.add(board.getMatrix()[i][i]);
+
+        }
+        return res;
+
+    }
     public void selectPiece(AppCompatButton b, int id) {
         sourceIntersectionId = id;
         sourceIntersectionButton = b;
@@ -454,5 +465,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return response;
+    }
+
+    public int hasThreePieces(){
+        if (firstPlayerOnBoardPieces==3){
+            step = 3;
+            return 1;
+        }
+        else if (secondPlayerOnBoardPieces==3){
+            step = 3;
+            return 2;
+        }
+        else return 0 ;
     }
 }

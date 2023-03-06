@@ -563,7 +563,7 @@
                 android:layout_height="@dimen/touch_piece_size"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+               />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/touch_piece24"
@@ -571,7 +571,7 @@
                 android:layout_height="@dimen/touch_piece_size"
                 android:layout_centerVertical="true"
                 android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            />
         </RelativeLayout>
 
         <RelativeLayout
