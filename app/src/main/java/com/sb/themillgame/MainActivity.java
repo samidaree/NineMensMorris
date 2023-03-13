@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static AppCompatButton sourceIntersectionButton;
     private static int step = 1;
 
+    private int [] flyers = {0,0} ;
     private int mill = 0;
     private ActivityMainBinding binding;
 
@@ -52,7 +53,10 @@ public class MainActivity extends AppCompatActivity {
             intersections[i] = findViewById(idArray[i]);
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
-                System.out.println(playerTurn);
+                System.out.println("step : "+ step);
+                //System.out.println(playerTurn);
+                System.out.println("white piece : " + firstPlayerOnBoardPieces);
+                System.out.println("black piece : "+ secondPlayerOnBoardPieces);
                 if (step == 1) {
                     if (mill == playerTurn){
                         if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 }
-                if (step == 2) {
+                if (step == 2 || step==3) {
                     if (mill == playerTurn){
                         if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
                             removePiece((AppCompatButton) view, selectedIntersection);
@@ -222,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     private void setPiece(AppCompatButton b, int pieceNumber) {
         if (firstPlayerPiecesSet == 9 && secondPlayerPiecesSet == 9 && step==1) {
             Toast.makeText(this, "You must click on a piece to move it ! ", Toast.LENGTH_LONG).show();
@@ -231,15 +236,20 @@ public class MainActivity extends AppCompatActivity {
         if (isIntersectionSelectable(pieceNumber)) {
 
             if (playerTurn == 1) {
-                firstPlayerPiecesSet++ ;
-                firstPlayerOnBoardPieces++;
+                if (step == 1){
+                    firstPlayerPiecesSet++ ;
+                    firstPlayerOnBoardPieces++;
+                }
                 this.board.setMatrix(pieceNumber, pieceNumber, "1");
                 b.setBackground(getDrawable(R.drawable.white_piece));
                 if (!isMill(pieceNumber))
                     playerTurn = 2;
             } else {
-                secondPlayerPiecesSet++ ;
-                secondPlayerOnBoardPieces++;
+                if (step == 1){
+                    secondPlayerPiecesSet++ ;
+                    secondPlayerOnBoardPieces++;
+                }
+
                 this.board.setMatrix(pieceNumber, pieceNumber, "2");
                 b.setBackground(getDrawable(R.drawable.black_piece));
                 if (!isMill(pieceNumber))
@@ -253,15 +263,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private boolean removePiece(AppCompatButton b, int pieceNumber) {
-        if (this.board.getMatrix()[pieceNumber][pieceNumber].equals("0"))
+        if (this.board.getMatrix()[pieceNumber][pieceNumber].equals("0") )
             return false;
+        else if (mill!=0) {
+            if (playerTurn == 2){
+                firstPlayerOnBoardPieces--;
+            }
+            else if (playerTurn == 1){
+                secondPlayerOnBoardPieces--;
+            }
+
+        }
         b.setBackground(getDrawable(R.drawable.transparent_round_button));
-        if (playerTurn == 1)
-            firstPlayerOnBoardPieces--;
-        else if (playerTurn == 2)
-            secondPlayerOnBoardPieces--;
         board.setMatrix(pieceNumber, pieceNumber, "0");
+        hasThreePieces();
         return true;
+
     }
 
 
@@ -297,26 +314,26 @@ public class MainActivity extends AppCompatActivity {
     //retourne une liste de position dont l'id en parametre peut se replacer
     public ArrayList<String> canMove(int id) {
         ArrayList<String> res = new ArrayList<>();
-        ArrayList<String> list = board.getNeighbor(id);
-        for (int i = 0; i < list.size(); i++) {
-            int tmp = Integer.parseInt(list.get(i));
-            if ((board.getMatrix()[tmp][tmp].equals("0"))) {
-                res.add(String.valueOf(tmp));
+        if (step == 3 && flyers[playerTurn-1] ==1)
+            for (int i = 0; i<board.getMatrix().length; i++){
+                if (board.getMatrix()[i][i].equals("0"))
+                    res.add(String.valueOf(i));
+
             }
+        else {
+            ArrayList<String> list = board.getNeighbor(id);
+            for (int i = 0; i < list.size(); i++) {
+                int tmp = Integer.parseInt(list.get(i));
+                if ((board.getMatrix()[tmp][tmp].equals("0"))) {
+                    res.add(String.valueOf(tmp));
+                }
+            }
+
         }
+
         return res;
     }
 
-    public ArrayList<String> canMoveStep3(int id) {
-        ArrayList<String> res = new ArrayList<>();
-        for (int i = 0; i<board.getMatrix().length; i++){
-            if (board.getMatrix()[i][i].equals("0"))
-                res.add(board.getMatrix()[i][i]);
-
-        }
-        return res;
-
-    }
     public void selectPiece(AppCompatButton b, int id) {
         sourceIntersectionId = id;
         sourceIntersectionButton = b;
@@ -340,19 +357,19 @@ public class MainActivity extends AppCompatActivity {
     //on recupere canMove de id, on regarde si newID est dedant,
     //si oui: on met à 0 la position id ET on met à 1 la posion newId
     public boolean movePiece(AppCompatButton sourceButton, AppCompatButton destinationButton, int sourceId, int destinationId) {
+
         if (!canMove(sourceId).contains(String.valueOf(destinationId))) {
             if (canSelect(destinationId)) {
                 unselectPiece();
                 selectPiece(destinationButton, destinationId);
             }
             return false;
-
-
         }
         if (playerTurn == 1)
             sourceButton.setBackground(getDrawable(R.drawable.white_piece_green_stroke));
         else
             sourceButton.setBackground(getDrawable(R.drawable.black_piece_green_stroke));
+
         removePiece(sourceButton, sourceId);
         setPiece(destinationButton, destinationId);
         return true;
@@ -468,14 +485,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public int hasThreePieces(){
-        if (firstPlayerOnBoardPieces==3){
-            step = 3;
-            return 1;
+        int flyer = 0 ;
+        if (step ==2 || step ==3){
+            if (firstPlayerOnBoardPieces==3){
+                step = 3;
+                flyer = 1;
+                flyers[0] = 1;
+            }
+            else if (secondPlayerOnBoardPieces==3){
+                step = 3;
+                flyer = 2;
+                flyers[1] = 1 ;
+            }
         }
-        else if (secondPlayerOnBoardPieces==3){
-            step = 3;
-            return 2;
-        }
-        else return 0 ;
+        System.out.println("flyers : " + flyers[0] + ", "+ flyers[1]);
+        return flyer ;
     }
 }

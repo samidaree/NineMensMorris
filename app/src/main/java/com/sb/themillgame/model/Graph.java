@@ -95,7 +95,7 @@ public class Graph {
 
 
 
-    public int evaluerEtatJeu(int [][]etatJeu, int lastPosition) {
+    /*public int evaluerEtatJeu(int [][]etatJeu, int lastPosition) {
         int score = 0;
         int nbPionsIA = 0;
         int nbPionsAdversaire = 0;
@@ -168,7 +168,7 @@ public class Graph {
             res[i][i]= Integer.parseInt(Matrix[i][i]);
         }
         return res;
-    }
+    }*/
 
 }
 
@@ -190,7 +190,6 @@ public class Graph {
 
 
 
-}
 
 
 
