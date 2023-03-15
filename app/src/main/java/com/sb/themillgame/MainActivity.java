@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static int playerTurn = 1;
 
-    private final Graph board = new Graph();
+    private Graph board = new Graph();
 
     private static int firstPlayerPiecesSet = 0 ;
     private static int secondPlayerPiecesSet = 0 ;
@@ -538,9 +538,34 @@ public class MainActivity extends AppCompatActivity {
     public void checkResults(){
         if (hasTwoPieces()==2) {
             System.out.println("First Player has won !!");
+            ResultDialog resultDialog = new ResultDialog(MainActivity.this ,  " First player is a Winner ! ", MainActivity.this);
+            resultDialog.setCancelable(false) ;
+            resultDialog.show();
         }
         else if ( hasTwoPieces() == 1){
             System.out.println("Second Player has won !!");
         }
+    }
+
+    public void restartMatch(){
+        for (int i = 0 ; i< intersections.length; i++){
+            intersections[i].setBackground(getDrawable(R.drawable.transparent_round_button));
+        }
+
+        playerTurn = 1;
+
+        board = new Graph();
+
+        firstPlayerPiecesSet = 0 ;
+        secondPlayerPiecesSet = 0 ;
+
+        firstPlayerOnBoardPieces = 0;
+        secondPlayerOnBoardPieces = 0;
+
+        selectedPiece = false;
+        step = 1;
+
+        flyers = new int[]{0,0} ;
+        mill = 0;
     }
 }
