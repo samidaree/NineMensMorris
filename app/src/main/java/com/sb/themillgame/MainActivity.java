@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }
+                checkResults();
             });
         }
 
@@ -500,5 +501,46 @@ public class MainActivity extends AppCompatActivity {
         }
         System.out.println("flyers : " + flyers[0] + ", "+ flyers[1]);
         return flyer ;
+    }
+
+    public int hasTwoPieces(){
+        if (firstPlayerOnBoardPieces == 2 && step>1)
+            return 1;
+        else if (secondPlayerOnBoardPieces == 2 && step>1)
+            return 2;
+        else
+            return 0;
+    }
+
+    public boolean firstPlayerCanMove(){
+        boolean firstPlayerCanMove = false;
+        for (int i= 0 ; i<board.getMatrix().length && firstPlayerCanMove == false; i++){
+           System.out.println("first player can move :" + canMove(Integer.parseInt(board.getMatrix()[i][i])));
+
+            if (board.getMatrix()[i][i].equals("1"))
+                if (!(canMove(Integer.parseInt(board.getMatrix()[i][i])).isEmpty()))
+                    firstPlayerCanMove = true;
+        }
+        return firstPlayerCanMove;
+    }
+
+    public boolean secondPlayerCanMove(){
+        boolean secondPlayerCanMove = false;
+        for (int i= 0 ; i<board.getMatrix().length && secondPlayerCanMove == false; i++){
+            System.out.println("second player can move : " + canMove(Integer.parseInt(board.getMatrix()[i][i])));
+            if (board.getMatrix()[i][i].equals("2"))
+                if (!(canMove(Integer.parseInt(board.getMatrix()[i][i])).isEmpty()))
+                    secondPlayerCanMove = true;
+        }
+        return secondPlayerCanMove;
+    }
+
+    public void checkResults(){
+        if (hasTwoPieces()==2) {
+            System.out.println("First Player has won !!");
+        }
+        else if ( hasTwoPieces() == 1){
+            System.out.println("Second Player has won !!");
+        }
     }
 }
