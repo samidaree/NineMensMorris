@@ -1,6 +1,7 @@
 package com.sb.themillgame;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,61 +54,64 @@ public class MainActivity extends AppCompatActivity {
             intersections[i] = findViewById(idArray[i]);
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
-                System.out.println("step : "+ step);
-                //System.out.println(playerTurn);
-                System.out.println("white piece : " + firstPlayerOnBoardPieces);
-                System.out.println("black piece : "+ secondPlayerOnBoardPieces);
-                if (step == 1) {
-                    if (mill == playerTurn){
-                        if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
-                            removePiece((AppCompatButton) view, selectedIntersection);
-                            mill = 0 ;
-                            changePlayerTurn();
-                        }
-
-                    }
-
-                    else{
-                        setPiece((AppCompatButton) view, selectedIntersection);
-
-                    }
-
-                }
-                if (step == 2 || step==3) {
-                    if (mill == playerTurn){
-                        if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
-                            removePiece((AppCompatButton) view, selectedIntersection);
-                            mill = 0 ;
-                            changePlayerTurn();
-                        }
-
-                    }
-                    else {
-                        if (!selectedPiece && canSelect(selectedIntersection)) {
-                            selectPiece((AppCompatButton) view, selectedIntersection);
-                        } else if (selectedPiece) {
-                            if (movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection))
-                                selectedPiece = false;
-                                // If player did not select a correct position, make him select again
-                            else {
-                                if (!canSelect(selectedIntersection))
-                                    Toast.makeText(this, "Select an available position maximum 1 unit far away", Toast.LENGTH_LONG).show();
-
-                                movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection);
-                            }
-
-                        }
-                    }
-
-
-                }
-                checkResults();
+                performAction((AppCompatButton) view, selectedIntersection);
             });
         }
 
 
     }
 
+    public void performAction(AppCompatButton view, int selectedIntersection){
+        System.out.println("step : "+ step);
+        //System.out.println(playerTurn);
+        System.out.println("white piece : " + firstPlayerOnBoardPieces);
+        System.out.println("black piece : "+ secondPlayerOnBoardPieces);
+        if (step == 1) {
+            if (mill == playerTurn){
+                if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
+                    removePiece((AppCompatButton) view, selectedIntersection);
+                    mill = 0 ;
+                    changePlayerTurn();
+                }
+
+            }
+
+            else{
+                setPiece((AppCompatButton) view, selectedIntersection);
+
+            }
+
+        }
+        if (step == 2 || step==3) {
+            if (mill == playerTurn){
+                if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
+                    removePiece((AppCompatButton) view, selectedIntersection);
+                    mill = 0 ;
+                    changePlayerTurn();
+                }
+
+            }
+            else {
+                if (!selectedPiece && canSelect(selectedIntersection)) {
+                    selectPiece((AppCompatButton) view, selectedIntersection);
+                } else if (selectedPiece) {
+                    if (movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection))
+                        selectedPiece = false;
+                        // If player did not select a correct position, make him select again
+                    else {
+                        if (!canSelect(selectedIntersection))
+                            Toast.makeText(this, "Select an available position maximum 1 unit far away", Toast.LENGTH_LONG).show();
+
+                        movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection);
+                    }
+
+                }
+            }
+
+
+        }
+        checkResults();
+    }
     public void setBoard() {
         //1
         addIntersection(0, 1);

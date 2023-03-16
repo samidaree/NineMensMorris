@@ -14,6 +14,8 @@ public class ResultDialog extends Dialog {
     private final MainActivity mainActivity;
     public ResultDialog(@NonNull Context context, String message, MainActivity mainActivity) {
         super(context);
+        this.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        this.getWindow().getAttributes().windowAnimations = R.style.dialog_animation;
         this.message = message;
         this.mainActivity = mainActivity;
     }
