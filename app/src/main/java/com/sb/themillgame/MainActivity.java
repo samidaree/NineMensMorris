@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
             intersections[i] = findViewById(idArray[i]);
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
-                performAction((AppCompatButton) view, selectedIntersection);
+                    performAction((AppCompatButton) view, selectedIntersection);
+                    aimove();
             });
         }
 
@@ -111,6 +112,21 @@ public class MainActivity extends AppCompatActivity {
 
         }
         checkResults();
+    }
+
+    public void aimove(){
+        int move = -1 ;
+        boolean hasMoved = false;
+        for (int i = 0 ; i<board.getMatrix().length && hasMoved==false; i++){
+            if (board.getMatrix()[i][i].equals("0")){
+                move = i ;
+                hasMoved = true ;
+            }
+
+        }
+
+        if (step ==1)
+            setPiece(intersections[move], move);
     }
     public void setBoard() {
         //1
