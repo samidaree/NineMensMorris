@@ -169,7 +169,43 @@ public class Graph {
         }
         return res;
     }
+    public boolean cantMoveMore(int joueur) {
+        //je recupere dans une liste la position des pions du joueur en parametre
+        ArrayList<Integer> list1 = new ArrayList<>();
+        for(int i =0; i< Matrix.length;i++) {
+            if(Matrix[i][i].equals(String.valueOf(joueur))) {
+                list1.add(i);
+            }
 
+        }
+        //retourne une liste de position dont l'id en parametre peut se replacer
+        public ArrayList<String> canMove(int id) {
+            ArrayList<String>res = new ArrayList<>();
+            ArrayList<String>list = getNeighbor(id);
+            for(int i =0; i< list.size();i++) {
+                int tmp = Integer.valueOf(list.get(i));
+                if((Matrix[tmp][tmp].equals("0"))) {
+                    res.add(String.valueOf(tmp));
+                }
+            }
+            return res;
+        }
+
+        //pour chaque element de la liste, je cree une liste temporaire qui stock
+        //les positions dont l'element peut se deplacer
+        //si dans la liste on retrouve un emplacement vide ici 0
+        //la fonction retroune vrai
+        //sinon fasle qui indique que tous les positions du joueur est bloqué
+        for(int i =0; i<list1.size();i++) {
+            ArrayList<String> list2 = canMove(i);
+            for(int j =0; j<list2.size();j++) {
+                int tmp = Integer.parseInt(list2.get(j));
+                if(Matrix[tmp][tmp].equals(String.valueOf(0))) {
+                    return false;
+                }
+            }
+        }
+    }
 }
 
 
@@ -190,7 +226,7 @@ public class Graph {
 
 
 
-}
+
 
 
 
