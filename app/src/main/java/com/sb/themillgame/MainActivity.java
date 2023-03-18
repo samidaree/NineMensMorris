@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void aimove(){
-        int move = -1 ;
+        /*int move = -1 ;
         boolean hasMoved = false;
         for (int i = 0 ; i<board.getMatrix().length && hasMoved==false; i++){
             if (board.getMatrix()[i][i].equals("0")){
@@ -126,7 +126,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (step ==1)
-            setPiece(intersections[move], move);
+            setPiece(intersections[move], move); */
+        int coup = greedy();
+        setPiece(intersections[coup], coup);
     }
     public void setBoard() {
         //1
@@ -587,5 +589,79 @@ public class MainActivity extends AppCompatActivity {
 
         flyers = new int[]{0,0} ;
         mill = 0;
+    }
+
+    public int evaluerEtatJeu(int [][]etatJeu, int lastPosition) {
+        int score = 0;
+        int nbPionsIA = 0;
+        int nbPionsAdversaire = 0;
+
+
+
+        if(isMill(lastPosition)) {
+            score+= 1000;
+        }
+        // Si la case contient un pion de l'IA, ajoutez un point au score et incrémentez le nombre de pions de l'IA
+        else if (etatJeu[lastPosition][lastPosition] == 1) {
+            score++;
+            nbPionsIA++;
+        }
+        // Si la case contient un pion de l'adversaire, soustrayez un point au score et incrémentez le nombre de pions de l'adversaire
+        else if (etatJeu[lastPosition][lastPosition] == -1) {
+            score--;
+            nbPionsAdversaire++;
+        }
+
+        // Si l'IA a moins de 3 pions, le score est défavorable
+        else if (nbPionsIA < 3) {
+            score -= 100;
+        }
+        // Si l'adversaire a moins de 3 pions, le score est favorable
+        else if (nbPionsAdversaire < 3) {
+            score += 100;
+        }
+
+        return score;
+    }
+
+    //algo gloutonne
+    public int greedy() {
+        int coup = 1;
+        int meilleureEvaluation = Integer.MIN_VALUE;
+
+
+        ArrayList<Integer> positionsPossibles = canMoveAll();
+
+        for (Integer pos : positionsPossibles) {
+
+            int[][] nouveauEtatJeu = copierEtatJeu();
+            nouveauEtatJeu[pos][pos] = 1;
+            int evaluation = evaluerEtatJeu(nouveauEtatJeu, pos);
+            if (evaluation > meilleureEvaluation) {
+                meilleureEvaluation = evaluation;
+                coup = pos;
+            }
+        }
+
+        return coup;
+    }
+
+    //quand on peut se depalcer partout sur le plateau
+    public ArrayList<Integer> canMoveAll() {
+        ArrayList<Integer> res= new ArrayList<Integer>();
+        for(int i= 0; i< board.getMatrix().length;i++) {
+            if(board.getMatrix()[i][i].equals("0")) {
+                res.add(i);
+            }
+        }
+        return res;
+    }
+
+    public int [][] copierEtatJeu() {
+        int [][]res= new int[24][24];
+        for(int i=0; i< board.getMatrix().length;i++) {
+            res[i][i]= Integer.parseInt(board.getMatrix()[i][i]);
+        }
+        return res;
     }
 }
