@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
                     performAction((AppCompatButton) view, selectedIntersection);
-                    aimove();
+                    //aimove();
             });
         }
 
@@ -108,10 +108,9 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-
-
         }
         checkResults();
+
     }
 
     public void aimove(){
@@ -128,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         if (step ==1)
             setPiece(intersections[move], move); */
         int coup = greedy();
+        System.out.println(coup) ;
         setPiece(intersections[coup], coup);
     }
     public void setBoard() {
@@ -345,6 +345,7 @@ public class MainActivity extends AppCompatActivity {
             }
         else {
             ArrayList<String> list = board.getNeighbor(id);
+            System.out.println("voisins de " + id + ": "+ list);
             for (int i = 0; i < list.size(); i++) {
                 int tmp = Integer.parseInt(list.get(i));
                 if ((board.getMatrix()[tmp][tmp].equals("0"))) {
@@ -536,35 +537,44 @@ public class MainActivity extends AppCompatActivity {
 
     public boolean firstPlayerCanMove(){
         boolean firstPlayerCanMove = false;
-        for (int i= 0 ; i<board.getMatrix().length && firstPlayerCanMove == false; i++){
-           System.out.println("first player can move :" + canMove(Integer.parseInt(board.getMatrix()[i][i])));
+        if (step == 1)
+            firstPlayerCanMove = true ;
+        else
+            for (int i= 0 ; i<board.getMatrix().length && firstPlayerCanMove == false; i++){
+                if (board.getMatrix()[i][i].equals("1"))
+                    if (!(canMove(i).isEmpty())){
+                        System.out.println(i + " of first player can move :" + canMove(i));
+                        firstPlayerCanMove = true;
 
-            if (board.getMatrix()[i][i].equals("1"))
-                if (!(canMove(Integer.parseInt(board.getMatrix()[i][i])).isEmpty()))
-                    firstPlayerCanMove = true;
-        }
+                    }
+            }
         return firstPlayerCanMove;
     }
 
     public boolean secondPlayerCanMove(){
         boolean secondPlayerCanMove = false;
-        for (int i= 0 ; i<board.getMatrix().length && secondPlayerCanMove == false; i++){
-            System.out.println("second player can move : " + canMove(Integer.parseInt(board.getMatrix()[i][i])));
-            if (board.getMatrix()[i][i].equals("2"))
-                if (!(canMove(Integer.parseInt(board.getMatrix()[i][i])).isEmpty()))
-                    secondPlayerCanMove = true;
-        }
+        if (step == 1)
+            secondPlayerCanMove = true;
+        else
+            for (int i= 0 ; i<board.getMatrix().length && secondPlayerCanMove == false; i++){
+                if (board.getMatrix()[i][i].equals("2"))
+                    if (!(canMove(i).isEmpty())){
+                        System.out.println(i + " of second player can move : " + canMove(i));
+                        secondPlayerCanMove = true;
+
+                    }
+            }
         return secondPlayerCanMove;
     }
 
     public void checkResults(){
-        if (hasTwoPieces()==2) {
+        if (hasTwoPieces()==2 || !secondPlayerCanMove()) {
             System.out.println("First Player has won !!");
             ResultDialog resultDialog = new ResultDialog(MainActivity.this ,  " First player is a Winner ! ", MainActivity.this);
             resultDialog.setCancelable(false) ;
             resultDialog.show();
         }
-        else if ( hasTwoPieces() == 1){
+        else if ( hasTwoPieces() == 1 || !firstPlayerCanMove()) {
             System.out.println("Second Player has won !!");
         }
     }
@@ -664,4 +674,12 @@ public class MainActivity extends AppCompatActivity {
         }
         return res;
     }
+
 }
+
+
+
+
+
+
+
