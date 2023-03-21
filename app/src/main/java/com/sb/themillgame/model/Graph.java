@@ -95,8 +95,119 @@ public class Graph {
 
 
 
+    public int evaluerEtatJeu(int [][]etatJeu, int lastPosition) {
+        int score = 0;
+        int nbPionsIA = 0;
+        int nbPionsAdversaire = 0;
 
+
+
+        if(isAlignement(lastPosition)) {
+            score+= 1000;
+        }
+        // Si la case contient un pion de l'IA, ajoutez un point au score et incrémentez le nombre de pions de l'IA
+        else if (etatJeu[lastPosition][lastPosition] == 1) {
+            score++;
+            nbPionsIA++;
+        }
+        // Si la case contient un pion de l'adversaire, soustrayez un point au score et incrémentez le nombre de pions de l'adversaire
+        else if (etatJeu[lastPosition][lastPosition] == -1) {
+            score--;
+            nbPionsAdversaire++;
+        }
+
+        // Si l'IA a moins de 3 pions, le score est défavorable
+        else if (nbPionsIA < 3) {
+            score -= 100;
+        }
+        // Si l'adversaire a moins de 3 pions, le score est favorable
+        else if (nbPionsAdversaire < 3) {
+            score += 100;
+        }
+
+        return score;
+    }
+
+    //algo gloutonne
+    public int jouerCoup() {
+        int coup = 1;
+        int meilleureEvaluation = Integer.MIN_VALUE;
+
+
+        ArrayList<Integer> positionsPossibles = canMoveAll();
+
+        for (Integer pos : positionsPossibles) {
+
+            int[][] nouveauEtatJeu = copierEtatJeu();
+            nouveauEtatJeu[pos][pos] = 1;
+            int evaluation = evaluerEtatJeu(nouveauEtatJeu, pos);
+            if (evaluation > meilleureEvaluation) {
+                meilleureEvaluation = evaluation;
+                coup = pos;
+            }
+        }
+
+        setPiece(coup);
+        return coup;
+    }
+
+    //quand on peut se depalcer partout sur le plateau
+    public ArrayList<Integer> canMoveAll() {
+        ArrayList<Integer> res= new ArrayList<Integer>();
+        for(int i= 0; i< Matrix.length;i++) {
+            if(Matrix[i][i].equals("0")) {
+                res.add(i);
+            }
+        }
+        return res;
+    }
+
+    public int [][] copierEtatJeu() {
+        int [][]res= new int[24][24];
+        for(int i=0; i< Matrix.length;i++) {
+            res[i][i]= Integer.parseInt(Matrix[i][i]);
+        }
+        return res;
+    }
+    public boolean cantMoveMore(int joueur) {
+        //je recupere dans une liste la position des pions du joueur en parametre
+        ArrayList<Integer> list1 = new ArrayList<>();
+        for(int i =0; i< Matrix.length;i++) {
+            if(Matrix[i][i].equals(String.valueOf(joueur))) {
+                list1.add(i);
+            }
+
+        }
+        //retourne une liste de position dont l'id en parametre peut se replacer
+        public ArrayList<String> canMove(int id) {
+            ArrayList<String>res = new ArrayList<>();
+            ArrayList<String>list = getNeighbor(id);
+            for(int i =0; i< list.size();i++) {
+                int tmp = Integer.valueOf(list.get(i));
+                if((Matrix[tmp][tmp].equals("0"))) {
+                    res.add(String.valueOf(tmp));
+                }
+            }
+            return res;
+        }
+
+        //pour chaque element de la liste, je cree une liste temporaire qui stock
+        //les positions dont l'element peut se deplacer
+        //si dans la liste on retrouve un emplacement vide ici 0
+        //la fonction retroune vrai
+        //sinon fasle qui indique que tous les positions du joueur est bloqué
+        for(int i =0; i<list1.size();i++) {
+            ArrayList<String> list2 = canMove(i);
+            for(int j =0; j<list2.size();j++) {
+                int tmp = Integer.parseInt(list2.get(j));
+                if(Matrix[tmp][tmp].equals(String.valueOf(0))) {
+                    return false;
+                }
+            }
+        }
+    }
 }
+
 
 
 
