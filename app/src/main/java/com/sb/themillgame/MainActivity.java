@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
                     performAction((AppCompatButton) view, selectedIntersection);
-                    //aimove();
+                    aimove();
             });
         }
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         if (step ==1)
             setPiece(intersections[move], move); */
         int coup = greedy();
-        System.out.println(coup) ;
+        System.out.println("greddy :  " + coup) ;
         setPiece(intersections[coup], coup);
     }
     public void setBoard() {
