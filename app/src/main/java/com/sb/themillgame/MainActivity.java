@@ -641,9 +641,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         ArrayList<Integer> positionsPossibles = canMoveAll();
-
+        System.out.println("position possibles pour l'ia : " + positionsPossibles);
         for (Integer pos : positionsPossibles) {
-
             int[][] nouveauEtatJeu = copierEtatJeu();
             nouveauEtatJeu[pos][pos] = 1;
             int evaluation = evaluerEtatJeu(nouveauEtatJeu, pos);
