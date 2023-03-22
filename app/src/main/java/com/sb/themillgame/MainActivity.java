@@ -50,12 +50,16 @@ public class MainActivity extends AppCompatActivity {
         // Une classe abstraite IA
         // 3 sous classes de IA pour chaque niveau
         // (1 classe joueur ou piece) à voir
+
+
         for (int i = 0; i < intersections.length; i++) {
             intersections[i] = findViewById(idArray[i]);
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
+
                     performAction((AppCompatButton) view, selectedIntersection);
                     aimove();
+                    System.out.println( "playerturn ; " + playerTurn);
             });
         }
 
@@ -128,7 +132,47 @@ public class MainActivity extends AppCompatActivity {
             setPiece(intersections[move], move); */
         int coup = greedy();
         System.out.println("greddy :  " + coup) ;
-        setPiece(intersections[coup], coup);
+        //setPiece(intersections[coup], coup);
+
+        if (step == 1) {
+
+                setPiece(intersections[coup], coup);
+                if (isMill(coup)){
+                    chooseRemovePiece();
+                    mill = 0 ;
+                    changePlayerTurn();
+                }
+
+
+        }
+        if (step == 2 || step==3) {
+            if (mill == playerTurn){
+                if (board.getMatrix()[coup][coup].equals(String.valueOf(getOtherPlayerTurn()))){
+                    removePiece(intersections[coup], coup);
+                    mill = 0 ;
+                    changePlayerTurn();
+                }
+
+            }
+            else {
+                if (!selectedPiece && canSelect(coup)) {
+                    selectPiece(intersections[coup], coup);
+                } else if (selectedPiece) {
+                    if (movePiece(sourceIntersectionButton, intersections[coup], sourceIntersectionId, coup))
+                        selectedPiece = false;
+                        // If player did not select a correct position, make him select again
+                    else {
+                        if (!canSelect(coup))
+                            Toast.makeText(this, "Select an available position maximum 1 unit far away", Toast.LENGTH_LONG).show();
+
+                        movePiece(sourceIntersectionButton, intersections[coup], sourceIntersectionId, coup);
+                    }
+
+                }
+            }
+        }
+        checkResults();
+
     }
     public void setBoard() {
         //1
@@ -266,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
                 this.board.setMatrix(pieceNumber, pieceNumber, "1");
                 b.setBackground(getDrawable(R.drawable.white_piece));
                 if (!isMill(pieceNumber))
-                    playerTurn = 2;
+                    playerTurn=2;
             } else {
                 if (step == 1){
                     secondPlayerPiecesSet++ ;
@@ -495,7 +539,6 @@ public class MainActivity extends AppCompatActivity {
         int nb4 = Integer.parseInt(list.get(3));
 
 
-
         if (board.getMatrix()[nb1][nb1].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb2][nb2].equals(String.valueOf(playerTurn))) {
             mill = playerTurn;
             response = true;
@@ -607,17 +650,19 @@ public class MainActivity extends AppCompatActivity {
         int nbPionsAdversaire = 0;
 
 
-
         if(isMill(lastPosition)) {
+            System.out.println("mill");
             score+= 1000;
         }
         // Si la case contient un pion de l'IA, ajoutez un point au score et incrémentez le nombre de pions de l'IA
         else if (etatJeu[lastPosition][lastPosition] == 1) {
+            //System.out.println("blanc");
             score++;
             nbPionsIA++;
         }
         // Si la case contient un pion de l'adversaire, soustrayez un point au score et incrémentez le nombre de pions de l'adversaire
-        else if (etatJeu[lastPosition][lastPosition] == -1) {
+        else if (etatJeu[lastPosition][lastPosition] == 2) {
+            System.out.println("noir");
             score--;
             nbPionsAdversaire++;
         }
@@ -630,8 +675,8 @@ public class MainActivity extends AppCompatActivity {
         else if (nbPionsAdversaire < 3) {
             score += 100;
         }
-
         return score;
+
     }
 
     //algo gloutonne
@@ -643,11 +688,11 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Integer> positionsPossibles = canMoveAll();
 
         for (Integer pos : positionsPossibles) {
-
             int[][] nouveauEtatJeu = copierEtatJeu();
             nouveauEtatJeu[pos][pos] = 1;
             int evaluation = evaluerEtatJeu(nouveauEtatJeu, pos);
             if (evaluation > meilleureEvaluation) {
+                System.out.println(" condition if");
                 meilleureEvaluation = evaluation;
                 coup = pos;
             }
@@ -671,10 +716,26 @@ public class MainActivity extends AppCompatActivity {
         int [][]res= new int[24][24];
         for(int i=0; i< board.getMatrix().length;i++) {
             res[i][i]= Integer.parseInt(board.getMatrix()[i][i]);
+
         }
+
+        /*for (int i = 0; i < res.length; i++) {
+            for (int j = 0; j < res.length; j++) {
+                System.out.print(res[i][j]+ " ");
+            }
+            System.out.println();
+        }*/
         return res;
     }
-
+    public void chooseRemovePiece(){
+        boolean hasRemoved = false ;
+        for (int i = 0 ; i<board.getMatrix().length && hasRemoved == false ;i++){
+            if (board.getMatrix()[i][i].equals("1")){
+                hasRemoved = true;
+                removePiece(intersections[i], i);
+            }
+        }
+    }
 }
 
 
