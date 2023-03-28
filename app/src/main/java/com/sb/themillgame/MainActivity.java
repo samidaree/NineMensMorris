@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         if (step == 1) {
             if (mill == playerTurn){
                 if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
+                    System.out.println("perform action remove piece");
                     removePiece((AppCompatButton) view, selectedIntersection);
                     mill = 0 ;
                     changePlayerTurn();
@@ -134,17 +135,23 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("greddy :  " + coup) ;
         //setPiece(intersections[coup], coup);
 
-        if (step == 1) {
-
-                setPiece(intersections[coup], coup);
-                if (isMill(coup)){
+            if (step == 1) {
+                if (mill == getOtherPlayerTurn()){
                     chooseRemovePiece();
                     mill = 0 ;
                     changePlayerTurn();
+
                 }
 
+                else if (mill ==0){
+                    setPiece(intersections[coup], coup);
 
-        }
+                }
+
+            }
+
+
+
         if (step == 2 || step==3) {
             if (mill == playerTurn){
                 if (board.getMatrix()[coup][coup].equals(String.valueOf(getOtherPlayerTurn()))){
@@ -329,14 +336,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // TODO : tester pq quand blanc fait un alignement il peut pas enlever piece de noir
+
     private boolean removePiece(AppCompatButton b, int pieceNumber) {
-        if (this.board.getMatrix()[pieceNumber][pieceNumber].equals("0") )
+        System.out.println("remove piece ");
+        System.out.println("piece number" + pieceNumber);
+        System.out.println("player piece " + board.getMatrix()[pieceNumber][pieceNumber]);
+        if (this.board.getMatrix()[pieceNumber][pieceNumber].equals("0") ){
+            System.out.println("there is no piece here !");
             return false;
+
+        }
         else if (mill!=0) {
             if (playerTurn == 2){
                 firstPlayerOnBoardPieces--;
             }
             else if (playerTurn == 1){
+                System.out.println(" done ! ");
                 secondPlayerOnBoardPieces--;
             }
 
@@ -347,7 +363,6 @@ public class MainActivity extends AppCompatActivity {
         return true;
 
     }
-
 
     public boolean isIntersectionSelectable(int pieceID) {
         boolean response = board.getMatrix()[pieceID][pieceID].equals("0");
@@ -731,6 +746,7 @@ public class MainActivity extends AppCompatActivity {
         boolean hasRemoved = false ;
         for (int i = 0 ; i<board.getMatrix().length && hasRemoved == false ;i++){
             if (board.getMatrix()[i][i].equals("1")){
+                System.out.println("chooseRemovePiece");
                 hasRemoved = true;
                 removePiece(intersections[i], i);
             }
