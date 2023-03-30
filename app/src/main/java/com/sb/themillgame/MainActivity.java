@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private static int sourceIntersectionId;
     private static AppCompatButton sourceIntersectionButton;
     private static int step = 1;
+    int aimove = 0 ;
 
     private int [] flyers = {0,0} ;
     private int mill = 0;
@@ -126,9 +127,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (step ==1)
             setPiece(intersections[move], move); */
-        int coup = greedy();
-        System.out.println("greddy :  " + coup) ;
-        setPiece(intersections[coup], coup);
+        //int coup = greedy();coup
+        //System.out.println("greddy :  " + coup) ;
+        performAction(intersections[aimove], aimove);
+        aimove++ ;
     }
     public void setBoard() {
         //1
