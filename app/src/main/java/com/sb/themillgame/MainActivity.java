@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
                     performAction((AppCompatButton) view, selectedIntersection);
-                    aiGreedyMove();
+                    aimove();
             });
         }
 
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
         //System.out.println("greddy :  " + coup) ;
         performAction(intersections[aimove], aimove);
 
-        if (mill == playerTurn){
+        if (mill == 2){
             chooseRemovePiece();
             mill = 0 ;
             changePlayerTurn();
@@ -147,8 +147,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void aiGreedyMove(){
         int coup = greedy();
+        System.out.println(coup) ;
         performAction(intersections[coup], coup);
-        if (mill == playerTurn){
+        if (mill == getOtherPlayerTurn()){
             chooseRemovePiece();
             mill = 0 ;
             changePlayerTurn();
