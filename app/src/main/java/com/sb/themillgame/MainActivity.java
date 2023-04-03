@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
                     performAction((AppCompatButton) view, selectedIntersection);
-                    aimove();
+                    aiGreedyMove();
             });
         }
 
@@ -130,7 +130,33 @@ public class MainActivity extends AppCompatActivity {
         //int coup = greedy();coup
         //System.out.println("greddy :  " + coup) ;
         performAction(intersections[aimove], aimove);
+
+        if (mill == playerTurn){
+            chooseRemovePiece();
+            mill = 0 ;
+            changePlayerTurn();
+
+        }
+
+        else if (mill ==0){
+            performAction(intersections[aimove], aimove);
+
+        }
         aimove++ ;
+    }
+
+    public void aiGreedyMove(){
+        int coup = greedy();
+        performAction(intersections[coup], coup);
+        if (mill == playerTurn){
+            chooseRemovePiece();
+            mill = 0 ;
+            changePlayerTurn();
+        }
+
+        else if (mill==0){
+            performAction(intersections[coup], coup);
+        }
     }
     public void setBoard() {
         //1
@@ -603,37 +629,33 @@ public class MainActivity extends AppCompatActivity {
         mill = 0;
     }
 
-    public int evaluerEtatJeu(int [][]etatJeu, int lastPosition) {
-        int score = 0;
-        int nbPionsIA = 0;
-        int nbPionsAdversaire = 0;
+    public int evaluerEtatJeu(int[][] etatJeu, int lastPosition, ArrayList<Integer> positionsPossibles) {
+        int scoreTotal = 0;
 
+        for (Integer pos : positionsPossibles) {
+            int score = 0;
+            int nbPionsIA = 0;
+            int nbPionsAdversaire = 0;
 
+            if (isMill(lastPosition)) {
+                score += 1000;
+            } else if (etatJeu[lastPosition][lastPosition] == 1) {
+                score++;
+                nbPionsIA++;
+            } else if (etatJeu[lastPosition][lastPosition] == -1) {
+                score--;
+                nbPionsAdversaire++;
+            } else if (nbPionsIA < 3) {
+                score -= 100;
+            } else if (nbPionsAdversaire < 3) {
+                score += 100;
+            }
 
-        if(isMill(lastPosition)) {
-            score+= 1000;
-        }
-        // Si la case contient un pion de l'IA, ajoutez un point au score et incrémentez le nombre de pions de l'IA
-        else if (etatJeu[lastPosition][lastPosition] == 1) {
-            score++;
-            nbPionsIA++;
-        }
-        // Si la case contient un pion de l'adversaire, soustrayez un point au score et incrémentez le nombre de pions de l'adversaire
-        else if (etatJeu[lastPosition][lastPosition] == -1) {
-            score--;
-            nbPionsAdversaire++;
-        }
-
-        // Si l'IA a moins de 3 pions, le score est défavorable
-        else if (nbPionsIA < 3) {
-            score -= 100;
-        }
-        // Si l'adversaire a moins de 3 pions, le score est favorable
-        else if (nbPionsAdversaire < 3) {
-            score += 100;
+            scoreTotal += score;
         }
 
-        return score;
+        int evaluation = scoreTotal / positionsPossibles.size();
+        return evaluation;
     }
 
     //algo gloutonne
@@ -648,7 +670,7 @@ public class MainActivity extends AppCompatActivity {
 
             int[][] nouveauEtatJeu = copierEtatJeu();
             nouveauEtatJeu[pos][pos] = 1;
-            int evaluation = evaluerEtatJeu(nouveauEtatJeu, pos);
+            int evaluation = evaluerEtatJeu(nouveauEtatJeu, pos, positionsPossibles);
             if (evaluation > meilleureEvaluation) {
                 meilleureEvaluation = evaluation;
                 coup = pos;
@@ -675,6 +697,17 @@ public class MainActivity extends AppCompatActivity {
             res[i][i]= Integer.parseInt(board.getMatrix()[i][i]);
         }
         return res;
+    }
+
+    public void chooseRemovePiece(){
+        boolean hasRemoved = false ;
+        for (int i = 0 ; i<board.getMatrix().length && hasRemoved == false ;i++){
+            if (board.getMatrix()[i][i].equals("1")){
+                System.out.println("chooseRemovePiece");
+                hasRemoved = true;
+                removePiece(intersections[i], i);
+            }
+        }
     }
 
 }
