@@ -56,9 +56,9 @@ public class MainActivity extends AppCompatActivity {
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
                 System.out.println("---------------------------");
-                    performActionAI((AppCompatButton) view, selectedIntersection);
+                performActionAI((AppCompatButton) view, selectedIntersection);
 
-                    aimove();
+                aimove();
             });
         }
 
@@ -102,9 +102,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void aiMill(){
-            chooseRemovePiece() ;
-            mill = 0 ;
-            playerTurn= 1;
+        chooseRemovePiece() ;
+        mill = 0 ;
+        playerTurn= 1;
     }
 
     public void playerMill(AppCompatButton b, int selectedIntersection){
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void aimove(){
-        int coup = greedy();
+        int coup = aimove;
 
         performActionAI(intersections[coup], coup);
 
@@ -754,5 +754,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-
