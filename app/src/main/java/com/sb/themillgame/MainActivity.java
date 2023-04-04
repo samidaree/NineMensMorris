@@ -56,18 +56,65 @@ public class MainActivity extends AppCompatActivity {
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
                 System.out.println("---------------------------");
+                    performActionAI((AppCompatButton) view, selectedIntersection);
 
-                performAction((AppCompatButton) view, selectedIntersection);
-                    aiGreedyMove();
+                    aimove();
             });
         }
 
 
     }
 
-    public void performActionAI(AppCompatButton view, int selectedIntersection){
-        intersections[selectedIntersection] = player
+    public void performActionAI(AppCompatButton b, int selectedIntersection){
+        System.out.println("player turn " + playerTurn);
+        System.out.println("mill " + mill) ;
+
+        if (isIntersectionSelectable(selectedIntersection)){
+            if (playerTurn == 1){
+
+                if (mill ==1){
+
+                    playerMill(b, selectedIntersection);
+                }
+                else {
+                    b.setBackground(getDrawable(R.drawable.white_piece));
+                    board.getMatrix()[selectedIntersection][selectedIntersection] = "1";
+                    isMill(selectedIntersection, 1);
+                    playerTurn = 2;
+                }
+
+
+
+            }
+            else{
+                if (mill ==2){
+                    aiMill();
+                }
+                else {
+                    b.setBackground(getDrawable(R.drawable.black_piece));
+                    board.getMatrix()[selectedIntersection][selectedIntersection] = "2";
+                    isMill(selectedIntersection, 2);
+                    playerTurn= 1;
+                }
+            }
+        }
+
     }
+
+    public void aiMill(){
+            chooseRemovePiece() ;
+            mill = 0 ;
+            playerTurn= 1;
+    }
+
+    public void playerMill(AppCompatButton b, int selectedIntersection){
+        if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
+            removePiece( b, selectedIntersection);
+            mill = 0 ;
+            playerTurn = 2;
+        }
+    }
+
     public void performAction(AppCompatButton view, int selectedIntersection){
         //System.out.println("step : "+ step);
         System.out.println("turn " + playerTurn);
@@ -129,8 +176,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void aimove(){
+        int coup = greedy();
 
-        performAction(intersections[aimove], aimove);
+        performActionAI(intersections[coup], coup);
 
 
         aimove++ ;
@@ -285,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 this.board.setMatrix(pieceNumber, pieceNumber, "1");
                 b.setBackground(getDrawable(R.drawable.white_piece));
-                if (!isMill(pieceNumber))
+                if (!isMill(pieceNumber, 1))
                     playerTurn = 2;
             } else {
                 if (step == 1){
@@ -295,7 +343,7 @@ public class MainActivity extends AppCompatActivity {
 
                 this.board.setMatrix(pieceNumber, pieceNumber, "2");
                 b.setBackground(getDrawable(R.drawable.black_piece));
-                if (!isMill(pieceNumber))
+                if (!isMill(pieceNumber,1))
                     playerTurn = 1;
             }
 
@@ -504,7 +552,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //test si l'id en paremetre possède un alignement
-    public Boolean isMill(int lastPosition) {
+    public Boolean isMill(int lastPosition , int turn) {
 
         boolean response = false;
         LinkedList<String> list = getMillCombinations(lastPosition);
@@ -516,12 +564,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        if (board.getMatrix()[nb1][nb1].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb2][nb2].equals(String.valueOf(playerTurn))) {
-            mill = playerTurn;
+        if (board.getMatrix()[nb1][nb1].equals(String.valueOf(turn)) && board.getMatrix()[nb2][nb2].equals(String.valueOf(turn))) {
+            mill = turn;
             response = true;
             return response;
-        } else if (board.getMatrix()[nb3][nb3].equals(String.valueOf(playerTurn)) && board.getMatrix()[nb4][nb4].equals(String.valueOf(playerTurn))) {
-            mill = playerTurn;
+        } else if (board.getMatrix()[nb3][nb3].equals(String.valueOf(turn)) && board.getMatrix()[nb4][nb4].equals(String.valueOf(turn))) {
+            mill = turn;
             response = true;
         }
 
@@ -563,7 +611,7 @@ public class MainActivity extends AppCompatActivity {
             for (int i= 0 ; i<board.getMatrix().length && firstPlayerCanMove == false; i++){
                 if (board.getMatrix()[i][i].equals("1"))
                     if (!(canMove(i).isEmpty())){
-                       // System.out.println(i + " of first player can move :" + canMove(i));
+                        // System.out.println(i + " of first player can move :" + canMove(i));
                         firstPlayerCanMove = true;
 
                     }
@@ -632,12 +680,12 @@ public class MainActivity extends AppCompatActivity {
             int nbPionsIA = 0;
             int nbPionsAdversaire = 0;
 
-            if (isMill(lastPosition)) {
+            if (isMill(lastPosition, playerTurn)) {
                 score += 1000;
             } else if (etatJeu[lastPosition][lastPosition] == 1) {
                 score++;
                 nbPionsIA++;
-            } else if (etatJeu[lastPosition][lastPosition] == -1) {
+            } else if (etatJeu[lastPosition][lastPosition] == 2) {
                 score--;
                 nbPionsAdversaire++;
             } else if (nbPionsIA < 3) {
@@ -706,10 +754,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
-
-
-
-
 
 
