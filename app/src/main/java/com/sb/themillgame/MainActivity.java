@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private static int firstPlayerOnBoardPieces = 0;
     private static int secondPlayerOnBoardPieces = 0;
 
+    private int justRemoved = -1 ;
     private static boolean selectedPiece = false;
     private static int sourceIntersectionId;
     private static AppCompatButton sourceIntersectionButton;
@@ -37,184 +38,8 @@ public class MainActivity extends AppCompatActivity {
     private int [] flyers = {0,0} ;
     private int mill = 0;
     private int intersectionSelected = -1;
+    private int lastPieceSet = -1;
     private ActivityMainBinding binding;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
-
-        setBoard();
-
-        // Une classe MainActivity ou on initialise le board et les 3 phases du jeu
-        // Une classe pour chaque phase
-        // Une classe abstraite IA
-        // 3 sous classes de IA pour chaque niveau
-        // (1 classe joueur ou piece) à voir
-        for (int i = 0; i < intersections.length; i++) {
-            intersections[i] = findViewById(idArray[i]);
-            final int selectedIntersection = i;
-            intersections[i].setOnClickListener(view -> {
-                System.out.println("---------------------------");
-
-                performActionAI((AppCompatButton) view, selectedIntersection);
-
-                aimove();
-            });
-        }
-
-
-    }
-
-    public void performActionAI(AppCompatButton b, int selectedIntersection){
-        System.out.println("player turn " + playerTurn);
-        System.out.println("mill " + mill) ;
-
-        //if (isIntersectionSelectable(selectedIntersection)){
-            if (playerTurn == 1){
-                if (mill ==1){
-                    playerMill(b, selectedIntersection);
-                }
-                if (mill==0) {
-                    b.setBackground(getDrawable(R.drawable.white_piece));
-                    board.getMatrix()[selectedIntersection][selectedIntersection] = "1";
-                    if(isMill(selectedIntersection, 1)){
-                        //playerMill(b, selectedIntersection);
-                        System.out.println("player mill");
-                    }
-
-                    else
-                        playerTurn = 2;
-                }
-
-
-
-            }
-            else{
-                /*if (mill ==2){
-                    aiMill();
-                }*/
-                if (mill==0) {
-                    b.setBackground(getDrawable(R.drawable.black_piece));
-                    board.getMatrix()[selectedIntersection][selectedIntersection] = "2";
-                    if (isMill(selectedIntersection, 2))
-                        aiMill();
-                    playerTurn= 1;
-                }
-            }
-        }
-
-
-
-    public void aiMill(){
-        chooseRemovePiece() ;
-        mill = 0 ;
-        playerTurn= 1;
-    }
-
-    public void playerMill(AppCompatButton b, int selectedIntersection){
-        /*for (int i = 0; i < intersections.length; i++) {
-            intersections[i] = findViewById(idArray[i]);
-            final int removedIntersection = i;
-            intersections[i].setOnClickListener(view -> {
-                removePiece( b, selectedIntersection);
-                mill = 0 ;
-                playerTurn = 2;
-            });
-        } */
-        System.out.println("methode playerMill - piece retirée = " + selectedIntersection);
-        if (board.getMatrix()[selectedIntersection][selectedIntersection].equals("2")){
-            System.out.println("piece enlevée " + selectedIntersection);
-            removePiece( b, selectedIntersection);
-            mill = 0 ;
-            playerTurn = 2;
-        }
-    }
-
-    public void performAction(AppCompatButton view, int selectedIntersection){
-        //System.out.println("step : "+ step);
-        System.out.println("turn " + playerTurn);
-        System.out.println("white piece : " + firstPlayerOnBoardPieces);
-        System.out.println("black piece : "+ secondPlayerOnBoardPieces);
-        if (step == 1) {
-            if (mill == 1){
-                if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
-                    removePiece((AppCompatButton) view, selectedIntersection);
-                    mill = 0 ;
-                    changePlayerTurn();
-                }
-
-            }
-            if (mill == 2){
-                System.out.println(" mill ai");
-
-                chooseRemovePiece();
-                mill = 0 ;
-
-                //changePlayerTurn();
-
-            }
-
-            else{
-                setPiece((AppCompatButton) view, selectedIntersection);
-
-            }
-
-        }
-        if (step == 2 || step==3) {
-            if (mill == playerTurn){
-                if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
-                    removePiece((AppCompatButton) view, selectedIntersection);
-                    mill = 0 ;
-                    changePlayerTurn();
-                }
-
-            }
-            else {
-                if (!selectedPiece && canSelect(selectedIntersection)) {
-                    selectPiece((AppCompatButton) view, selectedIntersection);
-                } else if (selectedPiece) {
-                    if (movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection))
-                        selectedPiece = false;
-                        // If player did not select a correct position, make him select again
-                    else {
-                        if (!canSelect(selectedIntersection))
-                            Toast.makeText(this, "Select an available position maximum 1 unit far away", Toast.LENGTH_LONG).show();
-
-                        movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection);
-                    }
-
-                }
-            }
-        }
-        checkResults();
-
-    }
-
-    public void aimove(){
-        int coup = aimove;
-
-        performActionAI(intersections[coup], coup);
-
-
-        aimove++ ;
-    }
-
-    public void aiGreedyMove(){
-        int coup = greedy();
-        System.out.println(coup) ;
-        performAction(intersections[coup], coup);
-        if (mill == getOtherPlayerTurn()){
-            chooseRemovePiece();
-            mill = 0 ;
-            changePlayerTurn();
-        }
-
-        else if (mill==0){
-            performAction(intersections[coup], coup);
-        }
-    }
     public void setBoard() {
         //1
         addIntersection(0, 1);
@@ -300,6 +125,184 @@ public class MainActivity extends AppCompatActivity {
         addIntersection(22, 23);
 
     }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(MainActivity.this, R.layout.activity_main);
+
+        setBoard();
+
+        // Une classe MainActivity ou on initialise le board et les 3 phases du jeu
+        // Une classe pour chaque phase
+        // Une classe abstraite IA
+        // 3 sous classes de IA pour chaque niveau
+        // (1 classe joueur ou piece) à voir
+        for (int i = 0; i < intersections.length; i++) {
+            intersections[i] = findViewById(idArray[i]);
+            final int selectedIntersection = i;
+            intersections[i].setOnClickListener(view -> {
+                System.out.println("---------------------------");
+                    performActionAI((AppCompatButton) view, selectedIntersection);
+
+                    aimove();
+
+
+            });
+        }
+
+
+    }
+
+    public void performActionAI(AppCompatButton b, int selectedIntersection){
+        System.out.println("player turn " + playerTurn);
+        System.out.println("mill " + mill) ;
+
+        //if (isIntersectionSelectable(selectedIntersection)){
+            if (playerTurn == 1){
+                if (mill ==1){
+                    playerMill(b, selectedIntersection);
+                }
+                if (mill==0 && justRemoved != selectedIntersection)  {
+                    b.setBackground(getDrawable(R.drawable.white_piece));
+                    board.getMatrix()[selectedIntersection][selectedIntersection] = "1";
+                    if(isMill(selectedIntersection, 1)){
+                        //playerMill(b, selectedIntersection);
+                        System.out.println("player mill");
+                    }
+
+                    else
+                        playerTurn = 2;
+                }
+
+
+
+            }
+            else{
+                if (mill ==2){
+                    aiMill();
+                    lastPieceSet = selectedIntersection;
+                }
+                if (mill==0 ) {
+                    b.setBackground(getDrawable(R.drawable.black_piece));
+                    board.getMatrix()[selectedIntersection][selectedIntersection] = "2";
+                    if (lastPieceSet != selectedIntersection)
+                        if (isMill(selectedIntersection, 2)){
+                            System.out.println("ai mill intersection " + selectedIntersection);
+                            // aiMill() ;
+                        }
+                    playerTurn= 1;
+                }
+            }
+        }
+
+
+
+    public void aiMill(){
+        System.out.println("ai mill method");
+        mill = 0 ;
+        System.out.println("mill 0 " + mill);
+        playerTurn= 1;
+        chooseRemovePiece() ;
+
+    }
+
+    public void playerMill(AppCompatButton b, int selectedIntersection){
+
+        System.out.println("methode playerMill - piece retirée = " + selectedIntersection);
+        if (board.getMatrix()[selectedIntersection][selectedIntersection].equals("2")){
+            System.out.println("piece enlevée " + selectedIntersection);
+            removePiece( b, selectedIntersection);
+            mill = 0 ;
+            justRemoved = selectedIntersection ;
+            playerTurn = 2;
+        }
+    }
+
+    public void performAction(AppCompatButton view, int selectedIntersection){
+        //System.out.println("step : "+ step);
+        System.out.println("turn " + playerTurn);
+        System.out.println("white piece : " + firstPlayerOnBoardPieces);
+        System.out.println("black piece : "+ secondPlayerOnBoardPieces);
+        if (step == 1) {
+            if (mill == 1){
+                if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
+                    removePiece((AppCompatButton) view, selectedIntersection);
+                    mill = 0 ;
+                    changePlayerTurn();
+                }
+
+            }
+            if (mill == 2){
+                System.out.println(" mill ai");
+
+                chooseRemovePiece();
+                mill = 0 ;
+
+                //changePlayerTurn();
+
+            }
+
+            else{
+                setPiece((AppCompatButton) view, selectedIntersection);
+
+            }
+
+        }
+        if (step == 2 || step==3) {
+            if (mill == playerTurn){
+                if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
+                    removePiece((AppCompatButton) view, selectedIntersection);
+                    mill = 0 ;
+                    changePlayerTurn();
+                }
+
+            }
+            else {
+                if (!selectedPiece && canSelect(selectedIntersection)) {
+                    selectPiece((AppCompatButton) view, selectedIntersection);
+                } else if (selectedPiece) {
+                    if (movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection))
+                        selectedPiece = false;
+                        // If player did not select a correct position, make him select again
+                    else {
+                        if (!canSelect(selectedIntersection))
+                            Toast.makeText(this, "Select an available position maximum 1 unit far away", Toast.LENGTH_LONG).show();
+
+                        movePiece(sourceIntersectionButton, (AppCompatButton) view, sourceIntersectionId, selectedIntersection);
+                    }
+
+                }
+            }
+        }
+        checkResults();
+
+    }
+
+    public void aimove(){
+        int coup = greedy();
+
+        performActionAI(intersections[coup], coup);
+
+
+        aimove++ ;
+    }
+
+    public void aiGreedyMove(){
+        int coup = greedy();
+        System.out.println(coup) ;
+        performAction(intersections[coup], coup);
+        if (mill == getOtherPlayerTurn()){
+            chooseRemovePiece();
+            mill = 0 ;
+            changePlayerTurn();
+        }
+
+        else if (mill==0){
+            performAction(intersections[coup], coup);
+        }
+    }
+
 
     public int changePlayerTurn (){
         int currentTurn;
@@ -766,6 +769,7 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("chooseRemovePiece");
                 hasRemoved = true;
                 removePiece(intersections[i], i);
+                justRemoved = i ;
             }
         }
     }
