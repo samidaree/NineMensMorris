@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private int [] flyers = {0,0} ;
     private int mill = 0;
+    private int intersectionSelected = -1;
     private ActivityMainBinding binding;
 
     @Override
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             final int selectedIntersection = i;
             intersections[i].setOnClickListener(view -> {
                 System.out.println("---------------------------");
+
                 performActionAI((AppCompatButton) view, selectedIntersection);
 
                 aimove();
@@ -69,37 +71,41 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("player turn " + playerTurn);
         System.out.println("mill " + mill) ;
 
-        if (isIntersectionSelectable(selectedIntersection)){
+        //if (isIntersectionSelectable(selectedIntersection)){
             if (playerTurn == 1){
-
                 if (mill ==1){
-
                     playerMill(b, selectedIntersection);
                 }
-                else {
+                if (mill==0) {
                     b.setBackground(getDrawable(R.drawable.white_piece));
                     board.getMatrix()[selectedIntersection][selectedIntersection] = "1";
-                    isMill(selectedIntersection, 1);
-                    playerTurn = 2;
+                    if(isMill(selectedIntersection, 1)){
+                        //playerMill(b, selectedIntersection);
+                        System.out.println("player mill");
+                    }
+
+                    else
+                        playerTurn = 2;
                 }
 
 
 
             }
             else{
-                if (mill ==2){
+                /*if (mill ==2){
                     aiMill();
-                }
-                else {
+                }*/
+                if (mill==0) {
                     b.setBackground(getDrawable(R.drawable.black_piece));
                     board.getMatrix()[selectedIntersection][selectedIntersection] = "2";
-                    isMill(selectedIntersection, 2);
+                    if (isMill(selectedIntersection, 2))
+                        aiMill();
                     playerTurn= 1;
                 }
             }
         }
 
-    }
+
 
     public void aiMill(){
         chooseRemovePiece() ;
@@ -108,7 +114,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void playerMill(AppCompatButton b, int selectedIntersection){
-        if (board.getMatrix()[selectedIntersection][selectedIntersection].equals(String.valueOf(getOtherPlayerTurn()))){
+        /*for (int i = 0; i < intersections.length; i++) {
+            intersections[i] = findViewById(idArray[i]);
+            final int removedIntersection = i;
+            intersections[i].setOnClickListener(view -> {
+                removePiece( b, selectedIntersection);
+                mill = 0 ;
+                playerTurn = 2;
+            });
+        } */
+        System.out.println("methode playerMill - piece retirée = " + selectedIntersection);
+        if (board.getMatrix()[selectedIntersection][selectedIntersection].equals("2")){
+            System.out.println("piece enlevée " + selectedIntersection);
             removePiece( b, selectedIntersection);
             mill = 0 ;
             playerTurn = 2;
