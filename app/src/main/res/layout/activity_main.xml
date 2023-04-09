@@ -209,7 +209,7 @@
 
 
             <ImageView
-                android:id="@+id/piece1"
+                android:id="@+id/piece0"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:src="@drawable/round_button"
@@ -219,7 +219,7 @@
 
 
             <ImageView
-                android:id="@+id/piece2"
+                android:id="@+id/piece1"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
@@ -232,7 +232,7 @@
 
 
             <ImageView
-                android:id="@+id/piece3"
+                android:id="@+id/piece2"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
@@ -244,7 +244,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece4"
+                android:id="@+id/piece21"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentBottom="true"
@@ -254,7 +254,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece5"
+                android:id="@+id/piece9"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_centerVertical="true"
@@ -264,7 +264,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece6"
+                android:id="@+id/piece22"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentBottom="true"
@@ -276,7 +276,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece7"
+                android:id="@+id/piece14"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
@@ -288,7 +288,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece8"
+                android:id="@+id/piece23"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
@@ -309,7 +309,7 @@
 
 
             <ImageView
-                android:id="@+id/piece9"
+                android:id="@+id/piece3"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:src="@drawable/round_button"
@@ -319,7 +319,7 @@
 
 
             <ImageView
-                android:id="@+id/piece10"
+                android:id="@+id/piece4"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
@@ -332,7 +332,7 @@
 
 
             <ImageView
-                android:id="@+id/piece11"
+                android:id="@+id/piece5"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
@@ -344,7 +344,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece15"
+                android:id="@+id/piece18"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentBottom="true"
@@ -355,7 +355,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece16"
+                android:id="@+id/piece10"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_centerVertical="true"
@@ -366,7 +366,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece14"
+                android:id="@+id/piece19"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentBottom="true"
@@ -378,7 +378,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece12"
+                android:id="@+id/piece13"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
@@ -390,7 +390,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece13"
+                android:id="@+id/piece20"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
@@ -411,7 +411,7 @@
 
 
             <ImageView
-                android:id="@+id/piece17"
+                android:id="@+id/piece6"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
 
@@ -421,7 +421,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece18"
+                android:id="@+id/piece7"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
@@ -432,7 +432,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece19"
+                android:id="@+id/piece8"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentTop="true"
@@ -443,7 +443,7 @@
 
             </ImageView>
             <ImageView
-                android:id="@+id/piece20"
+                android:id="@+id/piece12"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
@@ -455,7 +455,7 @@
             </ImageView>
 
             <ImageView
-                android:id="@+id/piece21"
+                android:id="@+id/piece17"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentEnd="true"
@@ -468,7 +468,7 @@
 
 
             <ImageView
-                android:id="@+id/piece22"
+                android:id="@+id/piece16"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentBottom="true"
@@ -478,7 +478,7 @@
 
             </ImageView>
             <ImageView
-                android:id="@+id/piece23"
+                android:id="@+id/piece15"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_alignParentBottom="true"
@@ -489,7 +489,7 @@
 
 
             <ImageView
-                android:id="@+id/piece24"
+                android:id="@+id/piece11"
                 android:layout_width="@dimen/piece_size"
                 android:layout_height="@dimen/piece_size"
                 android:layout_centerVertical="true"
@@ -508,14 +508,15 @@
             android:layout_height="127dp">
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece17"
+                android:id="@+id/touch_piece6"
                 android:layout_width="@dimen/touch_piece_size"
                 android:layout_height="@dimen/touch_piece_size"
                 android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
                  />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece18"
+                android:id="@+id/touch_piece7"
                 android:layout_width="@dimen/touch_piece_size"
                 android:layout_height="@dimen/touch_piece_size"
                 android:layout_centerHorizontal="true"
@@ -523,7 +524,7 @@
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece19"
+                android:id="@+id/touch_piece8"
                 android:layout_width="@dimen/touch_piece_size"
                 android:layout_height="@dimen/touch_piece_size"
                 android:layout_alignParentEnd="true"
@@ -531,7 +532,7 @@
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece20"
+                android:id="@+id/touch_piece12"
                 android:layout_width="@dimen/touch_piece_size"
                 android:layout_height="@dimen/touch_piece_size"
                 android:layout_alignParentEnd="true"
@@ -540,7 +541,156 @@
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece21"
+                android:id="@+id/touch_piece17"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece16"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece15"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/transparent_round_button"
+               />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece11"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_centerVertical="true"
+                android:background="@drawable/transparent_round_button"
+            />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/square2_touch"
+            android:layout_width="226dp"
+            android:layout_height="226dp"
+            android:layout_centerInParent="true">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece3"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece4"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece5"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece13"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece20"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece19"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece18"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece10"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_centerVertical="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/square1_touch"
+            android:layout_width="326dp"
+            android:layout_height="326dp"
+            android:layout_centerInParent="true">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece0"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece1"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece2"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece14"
+                android:layout_width="@dimen/touch_piece_size"
+                android:layout_height="@dimen/touch_piece_size"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/transparent_round_button"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/touch_piece23"
                 android:layout_width="@dimen/touch_piece_size"
                 android:layout_height="@dimen/touch_piece_size"
                 android:layout_alignParentEnd="true"
@@ -558,164 +708,15 @@
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece23"
+                android:id="@+id/touch_piece21"
                 android:layout_width="@dimen/touch_piece_size"
                 android:layout_height="@dimen/touch_piece_size"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/transparent_round_button"
-               />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece24"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_centerVertical="true"
-                android:background="@drawable/transparent_round_button"
-            />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/square2_touch"
-            android:layout_width="226dp"
-            android:layout_height="226dp"
-            android:layout_centerInParent="true">
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/touch_piece9"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece10"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece11"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece12"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece13"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece14"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece15"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece16"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_centerVertical="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/square1_touch"
-            android:layout_width="326dp"
-            android:layout_height="326dp"
-            android:layout_centerInParent="true">
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece1"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece2"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentTop="true"
-                android:layout_centerInParent="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece3"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentEnd="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece4"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece5"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece6"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece7"
-                android:layout_width="@dimen/touch_piece_size"
-                android:layout_height="@dimen/touch_piece_size"
-                android:layout_alignParentBottom="true"
-                android:background="@drawable/transparent_round_button"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/touch_piece8"
                 android:layout_width="@dimen/touch_piece_size"
                 android:layout_height="@dimen/touch_piece_size"
                 android:layout_centerVertical="true"

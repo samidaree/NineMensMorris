@@ -29,7 +29,7 @@ public class ResultDialog extends Dialog {
         startAgainButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mainActivity.restartMatch();
+                //mainActivity.restartMatch();
                 dismiss();
             }
         });
