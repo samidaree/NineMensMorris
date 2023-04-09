@@ -1,8 +1,7 @@
 package com.sb.themillgame;
 
 /**
- * @author l
- * 
+ *
  * Take Class
  * Provides check and execution of taking token moves
  */

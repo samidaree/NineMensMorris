@@ -1,7 +1,6 @@
 package com.sb.themillgame;
 
 /**
- * @author l
  *
  * Singleton
  * Board Class

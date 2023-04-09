@@ -1,8 +1,7 @@
 package com.sb.themillgame;
 
 /**
- * @author l
- * 
+ *
  * Human Class
  * Provides input unification and a way of keeping track of turns 
  */

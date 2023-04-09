@@ -20,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<AbstractMove> actions = new ArrayList<AbstractMove>();
 
     private ActivityMainBinding binding ;
+
+    private boolean mill = false;
+    private int millToken ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,27 +38,32 @@ public class MainActivity extends AppCompatActivity {
             intersections[i].setOnClickListener(view -> {
                 System.out.println("---------------------------");
                 System.out.println("turn  " + Game.getInstance().currentTurn.getColour());
-                    if(Game.getInstance().currentTurn==Game.getInstance().p1){
-                        view.setBackground(getDrawable(R.drawable.white_piece));
-                        Game.getInstance().PhaseOne(selectedIntersection);
+                if (mill == false){
+                    view.setBackground(getDrawable(R.drawable.white_piece));
+                    Game.getInstance().PhaseOne(selectedIntersection);
+                    if (Mills.checkMills(selectedIntersection)) {
+                        //Game.getInstance().currentTurn = Game.getInstance().p1;
+                        mill = true;
+                        millToken= selectedIntersection;
+
+                    }
+                    else {
                         int destination = Game.getInstance().currentTurn.readInt();
                         System.out.println("ai play : " + destination);
                         intersections[destination].setBackground(getDrawable(R.drawable.black_piece));
                         Game.getInstance().PhaseOne(destination);
+                        if (Mills.checkMills(destination)) {
+                            mill = true;
+                            millToken = destination;
+                        }
                     }
 
-                    //else{
-                    /*if (Game.getInstance().currentTurn == Game.getInstance().p2 && Game.getInstance().p2 instanceof EasyAI){
-                        int destination = Game.getInstance().currentTurn.readInt();
-                        System.out.println("ai play : " + destination);
-                        intersections[destination].setBackground(getDrawable(R.drawable.black_piece));
-                        Game.getInstance().PhaseOne((AppCompatButton) view, selectedIntersection);
-
-                    }*/
-
-
-
-                    //}
+                }
+                else {
+                    new Turn(millToken, selectedIntersection);
+                    mill = false;
+                }
+                System.out.println("mill " + mill);
 
 
 

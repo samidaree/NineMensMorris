@@ -6,8 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 /**
- * @author l
- * 
+ *
  * Singleton
  * Game Class
  * Contains main method
@@ -112,6 +111,7 @@ public class Game {
 		return;
 	}
 
+	/*
 	void PhaseOne(int id, int tokenToRemove){
 		System.out.println("Each Player gets "+numberOfMen+" Men.");
 		int redIndex = 0;
@@ -121,12 +121,12 @@ public class Game {
 			Display.getInstance().update();
 
 			System.out.println("Are you sure about this move? [Y/N]");
-				/*if(!p1.readYN()){
+				if(!p1.readYN()){
 					History.getInstance().undo();
 					Display.getInstance().update();
 					i--;
 					continue;
-				}*/
+				}
 
 			redIndex++;
 			currentTurn = p2;
@@ -137,12 +137,12 @@ public class Game {
 			Display.getInstance().update();
 
 			System.out.println("Are you sure about this move? [Y/N]");
-				/*if(!p2.readYN()){
+				if(!p2.readYN()){
 					History.getInstance().undo();
 					Display.getInstance().update();
 					i--;
 					continue;
-				}*/
+				}
 			currentTurn = p1;
 
 			blueIndex++;
@@ -151,8 +151,7 @@ public class Game {
 
 		//testAfterPhaseOne();//DEBUG
 		return;
-	}
-
+	}*/
 	
 	void setUp(){
 		p1 = new Human(Color.values()[0]);

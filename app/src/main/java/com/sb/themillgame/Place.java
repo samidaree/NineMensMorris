@@ -1,8 +1,7 @@
 package com.sb.themillgame;
 
 /**
- * @author l
- * 
+ *
  * Place Class
  * Provides check and execution of placing token moves
  */

@@ -1,7 +1,6 @@
 package com.sb.themillgame;
 
 /**
- * @author l
  *
  * Turn Class
  * Provides means of implying turn, phase and generating moves
@@ -16,9 +15,9 @@ public class Turn {
 	Turn(int dest, Man man){
 		makeMoveCommandsPhaseOne(dest, man);
 	}
-	Turn (int dest, int tokenToRemove, Man m){
+	/*Turn (int dest, int tokenToRemove, Man m){
 		makeMoveCommandsPhaseOne(dest, tokenToRemove, m);
-	}
+	}*/
 
 	Turn (int src, int tokenToRemove){
 		makeTakeCommand(src, tokenToRemove, actions);
@@ -68,7 +67,7 @@ public class Turn {
 		}
 	}
 
-	public void makeMoveCommandsPhaseOne(int destination, int tokenToRemove, Man m){
+	/*public void makeMoveCommandsPhaseOne(int destination, int tokenToRemove, Man m){
 		boolean success = false;
 		//while(success!=true){
 			System.out.println("Choose a house for a "+Game.getInstance().currentTurn.getColour()+" Man:");
@@ -82,7 +81,7 @@ public class Turn {
 				success=true;
 			//}
 		}
-	}
+	} */
 
 	
 	void makeTakeCommand(int src, int tokenToRemove, ArrayList<AbstractMove> actions){
@@ -92,9 +91,7 @@ public class Turn {
 					+ "\nChoose a house that contains an opponent man:");
 			//src = Game.getInstance().currentTurn.readInt();
 			Take move = new Take();
-			while (!move.check(tokenToRemove)){
-				src = Game.getInstance().currentTurn.readInt();
-			}
+			move.check(tokenToRemove);
 			move.exec();		
 			actions.add(move);
 		}

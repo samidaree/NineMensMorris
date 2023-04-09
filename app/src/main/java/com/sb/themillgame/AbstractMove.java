@@ -1,7 +1,6 @@
 package com.sb.themillgame;
 
 /**
- * @author l
  *
  *Abstract Class as parent for different types of moves
  */

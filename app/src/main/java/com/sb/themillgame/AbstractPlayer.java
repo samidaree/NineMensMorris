@@ -1,7 +1,6 @@
 package com.sb.themillgame;
 
 /**
- * @author l
  *
  *Abstract Class Player for AI and Human Player
  */
