@@ -29,55 +29,52 @@ public class Game {
 	//number of men left that can allow a man to jump
 	final static int MINMEN = 3;
 
-	/*private void PhaseTwo(){
+	 void PhaseTwo(int src, int dst){
 		int endCounter = 150;
-		while (win!=true) {
+		//while (win!=true) {
 			endCounter --;
 			if(Mills.canMove(Board.getInstance().red)==true){
 				currentTurn = p1;
-				new Turn(Board.getInstance().red);
+				new Turn(src, dst, Board.getInstance().red);
 				Display.getInstance().update();
 				Board.getInstance().howManyMen(Board.getInstance().red);
 				
 				System.out.println("Are you sure about this move? [Y/N]");
-				if(p1.readYN()){
+				/*if(p1.readYN()){
 					History.getInstance().undo();
 					Display.getInstance().update();
-				}
+				}*/
 				
 			}
 			else
 				win=true;
 			if(Mills.canMove(Board.getInstance().blue)){
 				currentTurn = p2;
-				new Turn(Board.getInstance().blue);
+				new Turn(src, dst, Board.getInstance().blue);
 				Display.getInstance().update();
 				Board.getInstance().howManyMen(Board.getInstance().blue);
 				
 				System.out.println("Are you sure about this move? [Y/N]");
-				if(p2.readYN()){
+				/*if(p2.readYN()){
 					History.getInstance().undo();
 					Display.getInstance().update();
-				}
+				}*/
 				
 			}
 			else
 				win=true;
 			if (endCounter <=0)
 				System.out.println("Draw.");
-		}
+		//}
 		if (currentTurn == p1)
 			System.out.println("Game finished! Player "+Color.values()[1]+" won!");
 		else
 			System.out.println("Game finished! Player "+Color.values()[0]+" won!");
-	}*/
+	}
 	
 	void PhaseOne(int id){
 		System.out.println("Each Player gets "+numberOfMen+" Men.");
-		if (redIndex == 9 && blueIndex == 9) {
-			phase = 2;
-			return ;
-		}
+
 		if (currentTurn == p1){
 				new Turn(id, Board.getInstance().red.get(redIndex));
 				Display.getInstance().update();
@@ -110,52 +107,17 @@ public class Game {
 			blueIndex++;
 				
 			}
+		if (redIndex == 9 && blueIndex == 9) {
+			phase = 2;
+		}
 
 		//testAfterPhaseOne();//DEBUG
 		return;
 	}
 
-	/*
-	void PhaseOne(int id, int tokenToRemove){
-		System.out.println("Each Player gets "+numberOfMen+" Men.");
-		int redIndex = 0;
-		int blueIndex = 0;
-		if (currentTurn == p1){
-			new Turn(id, tokenToRemove, Board.getInstance().red.get(redIndex));
-			Display.getInstance().update();
 
-			System.out.println("Are you sure about this move? [Y/N]");
-				if(!p1.readYN()){
-					History.getInstance().undo();
-					Display.getInstance().update();
-					i--;
-					continue;
-				}
 
-			redIndex++;
-			currentTurn = p2;
 
-		}
-		else{
-			new Turn(id, tokenToRemove, Board.getInstance().blue.get(blueIndex));
-			Display.getInstance().update();
-
-			System.out.println("Are you sure about this move? [Y/N]");
-				if(!p2.readYN()){
-					History.getInstance().undo();
-					Display.getInstance().update();
-					i--;
-					continue;
-				}
-			currentTurn = p1;
-
-			blueIndex++;
-
-		}
-
-		//testAfterPhaseOne();//DEBUG
-		return;
-	}*/
 
 	void changeTurn(){
 		if (currentTurn == p1)
@@ -167,6 +129,7 @@ public class Game {
 	void setUp(){
 		p1 = new Human(Color.values()[0]);
 		p2 = new EasyAI(Color.values()[1]);
+
 		currentTurn = p1;
 		Board.getInstance().setUp();
 		phase = 1;

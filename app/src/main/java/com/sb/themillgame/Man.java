@@ -14,4 +14,5 @@ public class Man extends AbstractMan{
 	public void setHouse(House h) {house = h;}
 	
 	public Man(Game.Color c){color=c;}
+
 }

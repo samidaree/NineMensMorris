@@ -2,6 +2,10 @@ package com.sb.themillgame;
 
 public class EasyAI extends AbstractPlayer{
     boolean end = false;
+
+    int stroke ;
+    int src;
+    int dst ;
     public EasyAI(Game.Color c){
         color = c;
     }
@@ -42,6 +46,29 @@ public class EasyAI extends AbstractPlayer{
             }
         }
         return stroke ;
+    }
+
+    public void move(){
+        boolean hasMoved = false;
+        for (int i = 0 ; i<Board.getInstance().getHouses().size() && hasMoved == false; i++ ) {
+            if (Board.getInstance().getHouses().get(i).getMan().getToken() == 'B'){
+                src = i ;
+                House h = Board.getInstance().getHouses().get(i);
+                House [] destinations = {h.getRight(), h.getDown(), h.getLeft(), h.getUp()};
+                for (int j= 0; j <destinations.length; j++ ){
+                    if(destinations[j].getMan().getToken() == ' ')
+                        dst = j ;
+                }
+            }
+        }
+    }
+
+    public int getSrc(){
+        return src ;
+    }
+
+    public int getDst(){
+        return dst ;
     }
 
     @Override

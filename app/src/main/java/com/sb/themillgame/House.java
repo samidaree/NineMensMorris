@@ -28,5 +28,9 @@ public class House {
 	public void setMan(AbstractMan m) {man = m;}
 	public int getId() {return id;}
 	public void setId(int i) {id = i;}
+
+	public String toString(){
+		return "Token "+ man.getToken() + "id " + id + "man " +getMan();
+	}
 	
 }

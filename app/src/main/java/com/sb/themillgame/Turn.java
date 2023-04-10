@@ -15,19 +15,17 @@ public class Turn {
 	Turn(int dest, Man man){
 		makeMoveCommandsPhaseOne(dest, man);
 	}
-	/*Turn (int dest, int tokenToRemove, Man m){
-		makeMoveCommandsPhaseOne(dest, tokenToRemove, m);
-	}*/
+
 
 	Turn (int src, int tokenToRemove){
 		makeTakeCommand(src, tokenToRemove, actions);
 	}
 
-	/*Turn(ArrayList<Man> men){
-		makeMoveCommandsPhaseTwo(men);
-	}*/
+	Turn(int src, int dst, ArrayList<Man> men){
+		makeMoveCommandsPhaseTwo(src, dst, men);
+	}
 
-	/*public void makeMoveCommandsPhaseTwo(ArrayList<Man> men){
+	public void makeMoveCommandsPhaseTwo(int src, int dst, ArrayList<Man> men){
 		boolean success = false;
 		while(success!=true){
 			int menLeft = 0;
@@ -44,14 +42,14 @@ public class Turn {
 			System.out.println("Player "+Game.getInstance().currentTurn.getColour()+", it is your turn.");
 			//for more than 3, Slide
 			if ( menLeft > Game.MINMEN )
-				success = makeSlideCommand(success);
+				success = makeSlideCommand(src, dst, success);
 			
 			//when 3 left, can jump
 			if ( menLeft == Game.MINMEN )
-				success = makeHopCommand(success);
+				success = makeHopCommand(src, dst, success);
 			
 		}
-	}*/
+	}
 	public void makeMoveCommandsPhaseOne(int destination, Man m){
 		boolean success = false;
 		//while(success!=true){
@@ -67,21 +65,6 @@ public class Turn {
 		}
 	}
 
-	/*public void makeMoveCommandsPhaseOne(int destination, int tokenToRemove, Man m){
-		boolean success = false;
-		//while(success!=true){
-			System.out.println("Choose a house for a "+Game.getInstance().currentTurn.getColour()+" Man:");
-
-			Place move = new Place();
-			if (move.check(destination,m)){
-				move.exec();
-				actions.add(move);
-				makeTakeCommand(destination, tokenToRemove, actions);
-				History.getInstance().save(actions);
-				success=true;
-			//}
-		}
-	} */
 
 	
 	void makeTakeCommand(int src, int tokenToRemove, ArrayList<AbstractMove> actions){
@@ -97,38 +80,40 @@ public class Turn {
 		}
 	}
 	
-	/*boolean makeSlideCommand(boolean success){
+	boolean makeSlideCommand(int src, int dir, boolean success){
 		boolean checking = false;
-		Slide move = new Slide();		
-		while(checking!=true){
-			System.out.println("Slide one of your men from its house."
+		System.out.println("src turn "  + Board.getInstance().getHouses().get(src).toString());
+		Slide move = new Slide();
+		System.out.println("src = " + src + " et dir = " + dir);
+		//while(checking!=true){
+			/*System.out.println("Slide one of your men from its house."
 					+ " Choose a house that contains your man and a direction to slide to:"
-					+ "\n{Up:"+move.UP+", Down:"+move.DOWN+", Right:"+move.RIGHT+", left:"+move.LEFT+"}");
-			int src = Game.getInstance().currentTurn.readInt();
-			int dir = Game.getInstance().currentTurn.readInt();
+					+ "\n{Up:"+move.UP+", Down:"+move.DOWN+", Right:"+move.RIGHT+", left:"+move.LEFT+"}");*/
+			//int src = Game.getInstance().currentTurn.readInt();
+			//int dir = Game.getInstance().currentTurn.readInt();
 			checking = move.check(src,dir);
-		}
+		//}
 		move.exec();
 		actions.add(move);
-		makeTakeCommand(move.getDestination().getId(), actions);
+		//makeTakeCommand(move.getDestination().getId(), actions);
 		success=true;
 		return success;
 	}
 	
-	boolean makeHopCommand(boolean success){
+	boolean makeHopCommand(int src, int dst, boolean success){
 		boolean checking = false;
 		Hop move = new Hop();
 		while(checking!=true){
 			System.out.println("You can jump. "
 					+ "Choose a house that contains your man and a destination house:");
-			int src = Game.getInstance().currentTurn.readInt();
-			int dst = Game.getInstance().currentTurn.readInt();
+			//int src = Game.getInstance().currentTurn.readInt();
+			//int dst = Game.getInstance().currentTurn.readInt();
 			checking = move.check(src,dst);
 		}
 		move.exec();
 		actions.add(move);
-		makeTakeCommand(move.getDestination().getId(), actions);
+		//makeTakeCommand(move.getDestination().getId(), actions);
 		success=true;
 		return success;
-	}*/
+	}
 }
