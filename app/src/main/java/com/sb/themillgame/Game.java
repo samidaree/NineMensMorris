@@ -23,6 +23,8 @@ public class Game {
 	AbstractPlayer p1;
 	AbstractPlayer p2;
 	int phase = 0;
+	int redIndex = 0 ;
+	int blueIndex = 0 ;
 	int numberOfMen = 9;
 	//number of men left that can allow a man to jump
 	final static int MINMEN = 3;
@@ -72,8 +74,10 @@ public class Game {
 	
 	void PhaseOne(int id){
 		System.out.println("Each Player gets "+numberOfMen+" Men.");
-		int redIndex = 0;
-		int blueIndex = 0;
+		if (redIndex == 9 && blueIndex == 9) {
+			phase = 2;
+			return ;
+		}
 		if (currentTurn == p1){
 				new Turn(id, Board.getInstance().red.get(redIndex));
 				Display.getInstance().update();
@@ -152,6 +156,13 @@ public class Game {
 		//testAfterPhaseOne();//DEBUG
 		return;
 	}*/
+
+	void changeTurn(){
+		if (currentTurn == p1)
+			currentTurn = p2 ;
+		else
+			currentTurn = p1;
+	}
 	
 	void setUp(){
 		p1 = new Human(Color.values()[0]);

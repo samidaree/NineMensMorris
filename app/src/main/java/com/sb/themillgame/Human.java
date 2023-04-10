@@ -17,6 +17,10 @@ public class Human extends AbstractPlayer{
 	public int readInt(){
 		return in.nextInt();
 	}
+
+	public int remove(){
+		return in.nextInt();
+	}
 	
 	public boolean readYN(){
 		String response = in.next();

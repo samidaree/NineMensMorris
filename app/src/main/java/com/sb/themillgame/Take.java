@@ -21,11 +21,11 @@ public class Take extends AbstractMove{
 				return false;
 			}
 			//if are all in mills, then the man can be removed
-			if(!allmills() && Mills.checkMills(src)){
+			/*if(!allmills() && Mills.checkMills(src)){
 				System.out.println("Chosen house contains a man that's already in a mill."
 						+ "\nYou can't remove that. Choose another");
 				return false;
-			}
+			} */
 			source = Board.getInstance().getHouses().get(src);
 			man = (Man) source.getMan();
 			return true;

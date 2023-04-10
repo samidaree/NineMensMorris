@@ -12,4 +12,5 @@ public abstract class AbstractPlayer {
 	public abstract boolean readYN();
 	public Game.Color getColour() {return this.color;}
 
+	public abstract int remove();
 }
