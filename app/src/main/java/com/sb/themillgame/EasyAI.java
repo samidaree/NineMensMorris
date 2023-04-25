@@ -56,8 +56,13 @@ public class EasyAI extends AbstractPlayer{
                 House h = Board.getInstance().getHouses().get(i);
                 House [] destinations = {h.getRight(), h.getDown(), h.getLeft(), h.getUp()};
                 for (int j= 0; j <destinations.length; j++ ){
-                    if(destinations[j].getMan().getToken() == ' ')
-                        dst = j ;
+                    if (destinations[j] !=null)
+                        if(destinations[j].getMan().getToken() == ' '){
+                            dst = destinations[j].getId();
+                            System.out.println("black src " + src);
+                            System.out.println("black dst " + dst);
+                            hasMoved= true;
+                        }
                 }
             }
         }

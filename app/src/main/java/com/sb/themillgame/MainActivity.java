@@ -108,26 +108,104 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 else {
-                    if (hasSelected==false && mill == false){
-                        if (Board.getInstance().getHouses().get(selectedIntersection).getMan().getToken() == 'W'){
-                            srcToken = selectedIntersection ;
-                            intersections[srcToken].setBackground(getDrawable(R.drawable.white_piece_green_stroke));
-                            hasSelected= true;
-                            System.out.println(" source move " + srcToken) ;
+                    if (mill == false){
+                        if (hasSelected==false){
+                            if (Board.getInstance().getHouses().get(selectedIntersection).getMan().getToken() == 'W'){
+                                srcToken = selectedIntersection ;
+                                intersections[srcToken].setBackground(getDrawable(R.drawable.white_piece_green_stroke));
+                                hasSelected= true;
+                            }
+                        }
+                        else if(hasSelected==true){
+                            if (Board.getInstance().getHouses().get(selectedIntersection).getMan().getToken()== ' ' && Board.getInstance().getHouses().get(srcToken).isNeighbour(selectedIntersection)) {
+
+                                intersections[srcToken].setBackground(getDrawable(R.drawable.transparent_round_button));
+                                intersections[selectedIntersection].setBackground(getDrawable(R.drawable.white_piece));
+                                Game.getInstance().PhaseTwo(srcToken,selectedIntersection);
+
+                                System.out.println("turn main :  " + Game.getInstance().currentTurn.getColour());
+
+                                if (Mills.checkMills(selectedIntersection)){
+                                    mill= true;
+                                    millToken = selectedIntersection;
+                                }
+                                else {
+                                    Game.getInstance().changeTurn();
+                                    hasSelected=false;
+                                }
+                                // Black moves
+                                if (mill == false) {
+                                    Game.getInstance().p2.move();
+                                    int src = Game.getInstance().p2.getSrc();
+                                    int dst = Game.getInstance().p2.getDst();
+                                    Game.getInstance().PhaseTwo(src,dst);
+                                    intersections[src].setBackground(getDrawable(R.drawable.transparent_round_button));
+                                    intersections[dst].setBackground(getDrawable(R.drawable.black_piece));
+
+                                    if(Mills.checkMills(dst)){
+                                        mill = true;
+                                        //Game.getInstance().changeTurn();
+                                        int remove = Game.getInstance().currentTurn.remove();
+                                        System.out.println("Piece to remove by Black is : "+  remove);
+                                        millToken = dst;
+                                        // Black removes a piece from white
+                                        new Turn(millToken, remove);
+                                        intersections[remove].setBackground(getDrawable(R.drawable.transparent_round_button));
+                                        Game.getInstance().changeTurn();
+                                        mill = false;
+                                    }
+                                    else {
+                                        Game.getInstance().changeTurn();
+
+                                    }
+                                }
+                            }
+                            else if (Board.getInstance().getHouses().get(selectedIntersection).getMan().getToken()== 'W'){
+                                intersections[srcToken].setBackground(getDrawable(R.drawable.white_piece));
+                                srcToken = selectedIntersection ;
+                                intersections[srcToken].setBackground(getDrawable(R.drawable.white_piece_green_stroke));
+                            }
                         }
                     }
-                    else if(hasSelected==true){
-                        System.out.println("src main "  + Board.getInstance().getHouses().get(srcToken).toString());
+                    else if(mill == true){
+                        if (Board.getInstance().getHouses().get(selectedIntersection).getMan().getToken() == 'B') {
+                            new Turn(millToken, selectedIntersection);
+                            intersections[selectedIntersection].setBackground(getDrawable(R.drawable.transparent_round_button));
 
-                        Game.getInstance().PhaseTwo(srcToken, selectedIntersection);
+                            mill = false;
+                            hasSelected=false;
+                            Game.getInstance().changeTurn();
+                            Game.getInstance().p2.move();
+                            int src = Game.getInstance().p2.getSrc();
+                            int dst = Game.getInstance().p2.getDst();
+                            Game.getInstance().PhaseTwo(src,dst);
+                            intersections[src].setBackground(getDrawable(R.drawable.transparent_round_button));
+                            intersections[dst].setBackground(getDrawable(R.drawable.black_piece));
+
+                            if(Mills.checkMills(dst)){
+                                mill = true;
+                                int remove = Game.getInstance().currentTurn.remove();
+                                System.out.println("Piece to remove by Black is : "+  remove);
+                                millToken = dst;
+                                // Black removes a piece from white
+                                new Turn(millToken, remove);
+                                intersections[remove].setBackground(getDrawable(R.drawable.transparent_round_button));
+                                Game.getInstance().changeTurn();
+                                mill = false;
+                            }
+                            else{
+                                Game.getInstance().changeTurn();
+
+                            }
+                        }
                     }
+
+
+
                     System.out.println("phase 2");
                 }
 
                 System.out.println("mill " + mill);
-
-
-
 
 
             });

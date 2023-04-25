@@ -21,7 +21,7 @@ public class Game {
 	public static boolean win=false;
 	AbstractPlayer currentTurn;
 	AbstractPlayer p1;
-	AbstractPlayer p2;
+	EasyAI p2;
 	int phase = 0;
 	int redIndex = 0 ;
 	int blueIndex = 0 ;
@@ -33,7 +33,7 @@ public class Game {
 		int endCounter = 150;
 		//while (win!=true) {
 			endCounter --;
-			if(Mills.canMove(Board.getInstance().red)==true){
+			if(Mills.canMove(Board.getInstance().red)==true && currentTurn.getColour()==Color.White){
 				currentTurn = p1;
 				new Turn(src, dst, Board.getInstance().red);
 				Display.getInstance().update();
@@ -44,11 +44,12 @@ public class Game {
 					History.getInstance().undo();
 					Display.getInstance().update();
 				}*/
+				return ;
 				
 			}
 			else
 				win=true;
-			if(Mills.canMove(Board.getInstance().blue)){
+			if(Mills.canMove(Board.getInstance().blue) && currentTurn.getColour()==Color.Black){
 				currentTurn = p2;
 				new Turn(src, dst, Board.getInstance().blue);
 				Display.getInstance().update();
@@ -59,7 +60,7 @@ public class Game {
 					History.getInstance().undo();
 					Display.getInstance().update();
 				}*/
-				
+				return ;
 			}
 			else
 				win=true;

@@ -32,5 +32,18 @@ public class House {
 	public String toString(){
 		return "Token "+ man.getToken() + "id " + id + "man " +getMan();
 	}
+
+	public boolean isNeighbour(int id){
+		House []neighbours = {this.left, this.right, this.up, this.down};
+
+		for (int i =0; i<4; i++){
+			if (neighbours[i]!=null){
+				if (id == neighbours[i].getId())
+					return true;
+			}
+		}
+			return false ;
+
+	}
 	
 }
