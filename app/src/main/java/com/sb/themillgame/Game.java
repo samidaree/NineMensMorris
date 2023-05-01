@@ -47,8 +47,7 @@ public class Game {
 				return ;
 				
 			}
-			else
-				win=true;
+
 			if(Mills.canMove(Board.getInstance().blue) && currentTurn.getColour()==Color.Black){
 				currentTurn = p2;
 				new Turn(src, dst, Board.getInstance().blue);
@@ -62,8 +61,7 @@ public class Game {
 				}*/
 				return ;
 			}
-			else
-				win=true;
+
 			if (endCounter <=0)
 				System.out.println("Draw.");
 		//}

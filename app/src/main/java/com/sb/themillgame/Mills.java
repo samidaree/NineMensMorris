@@ -85,7 +85,7 @@ public class Mills {
 		}
 		//Check if the number of men that are unable to move is same as total men (Or higher to avoid mistakes and glitches)
 		//Also considering that this situation only applies to slide, and not while jump is available.
-		//System.out.println("trappedMen: "+trappedMen);//DEBUG
+		System.out.println("trappedMen: "+trappedMen);//DEBUG
 		if ((numberOfMen != Game.MINMEN) && (trappedMen >= numberOfMen) ){
 			Game.win = true;
 			return false;

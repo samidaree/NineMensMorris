@@ -45,8 +45,11 @@ public class Turn {
 				success = makeSlideCommand(src, dst, success);
 			
 			//when 3 left, can jump
-			if ( menLeft == Game.MINMEN )
+			if ( menLeft == Game.MINMEN ){
 				success = makeHopCommand(src, dst, success);
+
+			}
+
 			
 		}
 	}
@@ -103,13 +106,13 @@ public class Turn {
 	boolean makeHopCommand(int src, int dst, boolean success){
 		boolean checking = false;
 		Hop move = new Hop();
-		while(checking!=true){
-			System.out.println("You can jump. "
-					+ "Choose a house that contains your man and a destination house:");
+		//while(checking!=true){
+			//System.out.println("You can jump. "
+					//+ "Choose a house that contains your man and a destination house:");
 			//int src = Game.getInstance().currentTurn.readInt();
 			//int dst = Game.getInstance().currentTurn.readInt();
 			checking = move.check(src,dst);
-		}
+		//}
 		move.exec();
 		actions.add(move);
 		//makeTakeCommand(move.getDestination().getId(), actions);

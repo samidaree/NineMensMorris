@@ -34,6 +34,10 @@ public class House {
 	}
 
 	public boolean isNeighbour(int id){
+		if (Game.getInstance().currentTurn.getColour() == Game.Color.White && Board.getInstance().howManyMen(Board.getInstance().red)<=3)
+			return true;
+		if (Game.getInstance().currentTurn.getColour() == Game.Color.Black && Board.getInstance().howManyMen(Board.getInstance().blue)<=3)
+			return true;
 		House []neighbours = {this.left, this.right, this.up, this.down};
 
 		for (int i =0; i<4; i++){

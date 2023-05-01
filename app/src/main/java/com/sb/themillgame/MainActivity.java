@@ -1,5 +1,6 @@
 package com.sb.themillgame;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             intersections[i].setOnClickListener(view -> {
                 System.out.println("---------------------------");
                 System.out.println("turn  " + Game.getInstance().currentTurn.getColour());
+
                 if (Game.getInstance().phase == 1){
                     if (mill == false && Board.getInstance().getHouses().get(selectedIntersection).getMan().getToken()== ' '){
                         // White sets token
@@ -107,7 +109,10 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }
-                else {
+                else if (Game.getInstance().phase == 2 || Game.getInstance().phase == 3) {
+                    if (checkResults())
+                        return ;
+
                     if (mill == false){
                         if (hasSelected==false){
                             if (Board.getInstance().getHouses().get(selectedIntersection).getMan().getToken() == 'W'){
@@ -122,7 +127,8 @@ public class MainActivity extends AppCompatActivity {
                                 intersections[srcToken].setBackground(getDrawable(R.drawable.transparent_round_button));
                                 intersections[selectedIntersection].setBackground(getDrawable(R.drawable.white_piece));
                                 Game.getInstance().PhaseTwo(srcToken,selectedIntersection);
-
+                                if (checkResults())
+                                    return ;
                                 System.out.println("turn main :  " + Game.getInstance().currentTurn.getColour());
 
                                 if (Mills.checkMills(selectedIntersection)){
@@ -139,9 +145,11 @@ public class MainActivity extends AppCompatActivity {
                                     int src = Game.getInstance().p2.getSrc();
                                     int dst = Game.getInstance().p2.getDst();
                                     Game.getInstance().PhaseTwo(src,dst);
+
                                     intersections[src].setBackground(getDrawable(R.drawable.transparent_round_button));
                                     intersections[dst].setBackground(getDrawable(R.drawable.black_piece));
-
+                                    if (checkResults())
+                                        return ;
                                     if(Mills.checkMills(dst)){
                                         mill = true;
                                         //Game.getInstance().changeTurn();
@@ -150,7 +158,10 @@ public class MainActivity extends AppCompatActivity {
                                         millToken = dst;
                                         // Black removes a piece from white
                                         new Turn(millToken, remove);
+
                                         intersections[remove].setBackground(getDrawable(R.drawable.transparent_round_button));
+                                        if (checkResults())
+                                            return ;
                                         Game.getInstance().changeTurn();
                                         mill = false;
                                     }
@@ -170,18 +181,24 @@ public class MainActivity extends AppCompatActivity {
                     else if(mill == true){
                         if (Board.getInstance().getHouses().get(selectedIntersection).getMan().getToken() == 'B') {
                             new Turn(millToken, selectedIntersection);
-                            intersections[selectedIntersection].setBackground(getDrawable(R.drawable.transparent_round_button));
 
+                            intersections[selectedIntersection].setBackground(getDrawable(R.drawable.transparent_round_button));
+                            if (checkResults())
+                                return ;
                             mill = false;
                             hasSelected=false;
+
+                            // Black moves
                             Game.getInstance().changeTurn();
                             Game.getInstance().p2.move();
                             int src = Game.getInstance().p2.getSrc();
                             int dst = Game.getInstance().p2.getDst();
                             Game.getInstance().PhaseTwo(src,dst);
+
                             intersections[src].setBackground(getDrawable(R.drawable.transparent_round_button));
                             intersections[dst].setBackground(getDrawable(R.drawable.black_piece));
-
+                            if (checkResults())
+                                return ;
                             if(Mills.checkMills(dst)){
                                 mill = true;
                                 int remove = Game.getInstance().currentTurn.remove();
@@ -189,7 +206,10 @@ public class MainActivity extends AppCompatActivity {
                                 millToken = dst;
                                 // Black removes a piece from white
                                 new Turn(millToken, remove);
+
                                 intersections[remove].setBackground(getDrawable(R.drawable.transparent_round_button));
+                                if (checkResults())
+                                    return ;
                                 Game.getInstance().changeTurn();
                                 mill = false;
                             }
@@ -201,16 +221,36 @@ public class MainActivity extends AppCompatActivity {
                     }
 
 
-
-                    System.out.println("phase 2");
                 }
+
+                if (checkResults())
+                    return ;
 
                 System.out.println("mill " + mill);
 
 
             });
+
         }
 
+
+
+    }
+
+    boolean checkResults(){
+        boolean playerHasWon = false;
+        if((Mills.canMove(Board.getInstance().red)==false && Game.getInstance().currentTurn.getColour()== Game.Color.White)|| Board.getInstance().howManyMen(Board.getInstance().red) < 3){
+            ResultDialog resultDialog = new ResultDialog(MainActivity.this, "Noir a gagné", MainActivity.this);
+            resultDialog.setCancelable(false) ;
+            resultDialog.show();
+        }
+        if((Mills.canMove(Board.getInstance().blue)==false && Game.getInstance().currentTurn.getColour()== Game.Color.White)|| Board.getInstance().howManyMen(Board.getInstance().blue) < 3){
+            ResultDialog resultDialog = new ResultDialog(MainActivity.this, "Blanc a gagné", MainActivity.this);
+            resultDialog.setCancelable(false) ;
+            resultDialog.show();
+            playerHasWon= true;
+        }
+        return playerHasWon ;
 
     }
 }
