@@ -1,2 +1,2 @@
 ## Demo 
-[](mill.gif)
+![](mill.gif)
